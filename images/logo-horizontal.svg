@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 701">
+  <!-- Trillas Consulting Engineers - horizontal lockup (vector recreation).
+       Drop the original artwork as images/logo-horizontal.png to override. -->
+  <g transform="translate(95,55) scale(5.6)">
+    <polygon points="50,4 50,33 4,47 4,18" fill="#1C2557"/>
+    <polygon points="50,4 96,18 96,47 50,33" fill="#8E9194"/>
+    <polygon points="31,44 50,39 50,96 31,91" fill="#1C2557"/>
+    <polygon points="50,39 69,44 69,91 50,96" fill="#8E9194"/>
+  </g>
+  <text x="660" y="455" font-family="Georgia, 'Times New Roman', serif" font-size="430" fill="#1C2557" textLength="1870" lengthAdjust="spacingAndGlyphs">RILLAS</text>
+  <text x="672" y="640" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="150" fill="#999B9E" textLength="1850" lengthAdjust="spacingAndGlyphs">CONSULTING ENGINEERS</text>
+</svg>
