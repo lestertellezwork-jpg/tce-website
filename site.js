@@ -1265,9 +1265,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[name="source"]').forEach(i => { i.value = sessionStorage.getItem('tceSrc'); });
   } catch (e) {}
 
+  // After a successful send, FormSubmit returns visitors to our thanks page
+  document.querySelectorAll('input[name="_next"]').forEach(i => {
+    i.value = new URL('thanks.html', location.href).href;
+  });
+
   // Local preview: forms can't send from a file on disk, so simulate the thank-you
   if (location.protocol === 'file:') {
-    document.querySelectorAll('form[data-netlify]').forEach(f => f.addEventListener('submit', e => {
+    document.querySelectorAll('form[action*="formsubmit"]').forEach(f => f.addEventListener('submit', e => {
       e.preventDefault();
       f.innerHTML = '<h3>Thank you!</h3><p style="color:var(--muted);margin-top:10px">Received. On the live site this submission is emailed to the firm.</p><p style="color:var(--gray);font-size:12px;margin-top:8px"><em>(Local preview &mdash; sending activates once deployed on Netlify.)</em></p>';
     }));

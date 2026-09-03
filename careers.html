@@ -18,7 +18,7 @@
 <meta property="og:description" content="Open positions: BIM/Revit Technician and Forensic Building Inspector.">
 <meta property="og:image" content="https://www.trillasengineering.com/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="styles.css?v=79">
+<link rel="stylesheet" href="styles.css?v=80">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -217,9 +217,13 @@
     </div>
     <div class="form-v2 reveal reveal-d1">
       <h3>Application</h3>
-      <form name="careers-application" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
+      <form name="careers-application" method="POST" action="https://formsubmit.co/info@trillasengineering.com" enctype="multipart/form-data">
         <input type="hidden" name="form-name" value="careers-application">
-        <p hidden aria-hidden="true"><label>Leave this empty: <input name="bot-field"></label></p>
+        <input type="hidden" name="_subject" value="New career application — TCE website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="">
+        <p hidden aria-hidden="true"><label>Leave this empty: <input name="_honey"></label></p>
         <div class="f-grid">
           <div class="f-field"><label>First Name</label><input type="text" name="first-name" autocomplete="given-name" required placeholder="Jane"></div>
           <div class="f-field"><label>Last Name</label><input type="text" name="last-name" autocomplete="family-name" required placeholder="Smith"></div>
@@ -240,9 +244,9 @@
         <div class="f-field">
           <label>Resume &amp; Portfolio</label>
           <label class="file-drop">
-            <input type="file" name="resume" accept=".jpg,.png,.pdf">
+            <input type="file" name="attachment" accept=".jpg,.png,.pdf">
             <span class="fd-big">Drop files here or click to select</span>
-            <span class="fd-note">Accepted: jpg, png, pdf &middot; One file &middot; Max size: 8 MB</span>
+            <span class="fd-note">Accepted: jpg, png, pdf &middot; One file &middot; Max size: 5 MB</span>
           </label>
         </div>
         <div class="f-field"><label>Message</label><textarea name="message" placeholder="Tell us a little about yourself and your experience&hellip;"></textarea></div>
@@ -298,6 +302,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=79"></script>
+<script src="site.js?v=80"></script>
 </body>
 </html>

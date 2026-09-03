@@ -18,7 +18,7 @@
 <meta property="og:description" content="Independent storm-damage engineering evaluations: hurricane, wind, hail, and water. Defensible cause-and-extent reports across 32 jurisdictions — Gulf Coast to hail alley to the Northeast.">
 <meta property="og:image" content="https://www.trillasengineering.com/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="styles.css?v=79">
+<link rel="stylesheet" href="styles.css?v=80">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -88,10 +88,14 @@
         <p style="color:var(--muted);margin-top:18px"><strong style="color:var(--ink)">Property owners:</strong> after severe weather, document everything before repairs &mdash; photos, dates, damage from multiple angles. If the claim is disputed, an independent evaluation can establish what actually caused the damage.</p>
       </div>
       <div class="form-v2 reveal reveal-d1" id="form">
-      <form name="lead-storm" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field">
+      <form name="lead-storm" method="POST" action="https://formsubmit.co/info@trillasengineering.com">
         <input type="hidden" name="form-name" value="lead-storm">
+        <input type="hidden" name="_subject" value="New storm-damage lead — TCE website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="">
         <input type="hidden" name="source" value="">
-        <p hidden aria-hidden="true"><label>Leave this empty: <input name="bot-field"></label></p>
+        <p hidden aria-hidden="true"><label>Leave this empty: <input name="_honey"></label></p>
         <div class="f-grid">
           <div class="f-field"><label>Name</label><input type="text" name="name" autocomplete="name" required placeholder="Jane Smith"></div>
           <div class="f-field"><label>Email</label><input type="email" name="email" autocomplete="email" required placeholder="jane@company.com"></div>
@@ -208,6 +212,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=79"></script>
+<script src="site.js?v=80"></script>
 </body>
 </html>
