@@ -295,9 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = path.dataset.name;
       const lic = path.classList.contains('lic');
       tip.innerHTML = '<strong>' + name + '</strong><small>' +
-        (lic ? (path.dataset.no ? path.dataset.no + (path.dataset.since ? ' \u00b7 Licensed since ' + path.dataset.since : '')
-                                 : 'Eric F. Trillas, PE \u2014 licensed')
-             : 'Not yet licensed \u2014 ask about reciprocity') + '</small>';
+        (lic ? 'Licensed'
+             : 'Not licensed') + '</small>';
       const r = wrap.getBoundingClientRect();
       tip.style.left = (x - r.left) + 'px';
       tip.style.top = (y - r.top) + 'px';
@@ -1058,7 +1057,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nd.innerHTML =
       '<button class="nudge-x" aria-label="Dismiss">&times;</button>' +
       (document.documentElement.classList.contains('returning')
-        ? '<strong>Welcome back \u2014 need Eric on something?</strong>'
+        ? '<strong>Welcome back \u2014 need an engineer on something?</strong>'
         : '<strong>Have a project or claim like this?</strong>') +
       '<p>Free scoping conversation &mdash; you&rsquo;ll hear back within one business day.</p>' +
       '<div class="nudge-btns"><a href="contact.html#form" class="pill solid">Get My Proposal</a>' +
@@ -1270,13 +1269,40 @@ document.addEventListener('DOMContentLoaded', () => {
     i.value = new URL('thanks.html', location.href).href;
   });
 
-  // Local preview: forms can't send from a file on disk, so simulate the thank-you
-  if (location.protocol === 'file:') {
-    document.querySelectorAll('form[action*="formsubmit"]').forEach(f => f.addEventListener('submit', e => {
+  // TCE forms: AJAX submit — visitors never leave the site
+  const TCE_FORMS_KEY = '6b6640d9-70ca-4de5-8315-e863ac6014ac';   // free key: web3forms.com -> enter info@trillasengineering.com
+  const confirmHTML = '<div class="form-done"><div class="fd-check">&#10003;</div><h3>Request received.</h3>' +
+    '<p>Thank you &mdash; you&rsquo;ll hear back within one business day, usually the same afternoon.</p>' +
+    '<p class="fd-alt">Need us sooner? Call <a href="tel:7865425474">786-542-5474</a>.</p></div>';
+  document.querySelectorAll('form[data-tce-form]').forEach(f => {
+    f.addEventListener('submit', async e => {
       e.preventDefault();
-      f.innerHTML = '<h3>Thank you!</h3><p style="color:var(--muted);margin-top:10px">Received. On the live site this submission is emailed to the firm.</p><p style="color:var(--gray);font-size:12px;margin-top:8px"><em>(Local preview &mdash; sending activates once deployed on Netlify.)</em></p>';
-    }));
-  }
+      const btn = f.querySelector('button[type="submit"]');
+      const oldLabel = btn.innerHTML;
+      btn.disabled = true; btn.innerHTML = 'Sending&hellip;';
+      const data = Object.fromEntries(new FormData(f).entries());
+      delete data['not-robot']; delete data['botcheck'];
+      data.access_key = TCE_FORMS_KEY;
+      data.subject = f.dataset.subject || 'TCE website inquiry';
+      try {
+        if (location.protocol === 'file:') throw 'local';
+        const r = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const j = await r.json();
+        if (!j.success) throw 0;
+        f.innerHTML = confirmHTML;
+      } catch (err) {
+        if (err === 'local') { f.innerHTML = confirmHTML + '<p style="font-size:11px;color:var(--gray)"><em>(Local preview &mdash; live site emails the firm.)</em></p>'; return; }
+        btn.disabled = false; btn.innerHTML = oldLabel;
+        let msg = f.querySelector('.form-err');
+        if (!msg) { msg = document.createElement('p'); msg.className = 'form-err'; btn.parentNode.insertBefore(msg, btn.nextSibling); }
+        msg.innerHTML = 'Something went wrong sending your request. Please call <a href="tel:7865425474">786-542-5474</a> or email <a href="mailto:info@trillasengineering.com">info@trillasengineering.com</a>.';
+      }
+    });
+  });
 
   // Motion preference toggle (persisted)
   document.querySelectorAll('.footer-v2 .wrap').forEach(w => {

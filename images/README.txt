@@ -40,3 +40,19 @@ PORTFOLIO (updated - real 2024+ projects)
 - project-impact-church.jpg
 - project-texas-health.jpg
 - project-hidden-creek.jpg
+
+PORTFOLIO v2 DESIGN CARDS (drop hero photos with these names)
+- project-oak-preserve.jpg, project-hamptons.jpg, project-delray.jpg,
+- project-crescent.jpg, project-inverness.jpg, project-walker.jpg,
+- project-janay.jpg, project-lot4.jpg, project-lot6.jpg,
+- project-roadrunner.jpg, project-essig.jpg  (hidden-creek already in)
+
+FORENSIC CARDS v2 (drop hero photos with these names)
+- project-royal-bay.jpg, project-dop.jpg, project-crm.jpg, project-westover.jpg,
+- project-carolina-flatz.jpg, project-shuckers.jpg, project-7g-miami.jpg,
+- project-shamron.jpg, project-rizzi.jpg, project-muriel.jpg
+
+TEAM PHOTOS (Firm page - drop headshots with these names)
+- team-nina.jpg, team-frank.jpg, team-jose.jpg, team-cristy.jpg, team-lester.jpg
+  (janessi-trillas.jpg and eric-trillas.jpg already in)
+- project-oceania.jpg, project-tunica.jpg, project-cateechee.jpg, project-palms.jpg

@@ -3056,3 +3056,106 @@ html.calm .sk, html.calm .statement .w { opacity: 1 !important; color: inherit; 
 .svc-grid .svc .go { margin-top: auto; }
 @media (max-width: 900px) { .svc-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
+
+/* ============ PORTFOLIO v2 — PROJECT FILE CARDS ============ */
+.pf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); align-items: start; }
+.pf-card {
+  background: #fff; border: 1.5px solid var(--navy); border-radius: 6px;
+  box-shadow: 7px 9px 0 -1px #f0f3f8, 7px 9px 0 0 #d8deea;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.pf-card:hover { transform: translateY(-4px); box-shadow: 7px 9px 0 -1px #f0f3f8, 7px 9px 0 0 #d8deea, 0 20px 44px rgba(16,24,60,.12); }
+.pf-card summary { list-style: none; cursor: pointer; padding: 24px 26px 20px; }
+.pf-card summary::-webkit-details-marker { display: none; }
+.pf-top { display: flex; justify-content: space-between; margin-bottom: 12px; }
+.pf-no, .pf-year { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--accent); }
+.pf-year { color: var(--gray); }
+.pf-card h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(21px, 2vw, 26px); color: var(--ink); }
+.pf-loc { margin-top: 5px; font-size: 12px; color: var(--muted); }
+.pf-chips { margin: 12px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pf-chips i {
+  font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid rgba(56,102,204,.35); border-radius: 999px; padding: 4px 10px;
+}
+.pf-hook { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.pf-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.pf-spec {
+  font-size: 11.5px; font-weight: 700; color: var(--ink); text-align: center;
+  background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 10px 6px; line-height: 1.4;
+}
+.pf-toggle {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+}
+.pf-toggle b { transition: transform .3s; }
+.pf-card[open] .pf-toggle b { transform: rotate(180deg); }
+.pf-body { padding: 4px 26px 26px; border-top: 1px solid var(--rule); animation: jobOpen .45s ease; }
+.pf-photo { margin: 18px 0 6px; border-radius: 10px; overflow: hidden; border: 1px solid var(--rule-dark); }
+.pf-photo img { width: 100%; max-height: 300px; object-fit: cover; display: block; }
+.pf-body h4 {
+  margin: 20px 0 8px; font-size: 10.5px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+}
+.pf-body p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.pf-body .check-v2 li { font-size: 13.5px; }
+.pf-rows { margin-top: 18px; border-top: 1.5px solid var(--navy); }
+.pf-more { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--accent); }
+@media (max-width: 860px) {
+  .pf-grid { grid-template-columns: 1fr; }
+  .pf-card summary { padding: 20px 18px 16px; }
+  .pf-body { padding: 4px 18px 22px; }
+  .pf-specs { gap: 6px; }
+}
+
+/* ============ THE TEAM GRID (Firm page) ============ */
+.tm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(14px, 2vw, 26px);
+  max-width: 1150px; margin: 0 auto;
+}
+.tm-card {
+  background: #fff; border: 1px solid var(--rule); border-radius: 14px;
+  padding: 26px 18px 22px; text-align: center;
+  box-shadow: 0 12px 30px rgba(16,24,60,.06);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .3s;
+}
+.tm-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 22px 46px rgba(16,24,60,.13); }
+.tm-photo {
+  position: relative; width: 128px; height: 128px; margin: 0 auto 16px;
+  border-radius: 50%; overflow: hidden;
+  background: var(--paper-2); border: 2px solid var(--rule-dark);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 40px; color: var(--rule-dark);
+  transition: border-color .3s;
+}
+.tm-card:hover .tm-photo { border-color: var(--accent); }
+.tm-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tm-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--ink); }
+.tm-title {
+  margin-top: 5px; font-family: var(--font-mono); font-weight: 500;
+  font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+}
+
+/* ============ ON-SITE FORM SUBMISSION ============ */
+.robot-check {
+  display: flex; align-items: center; gap: 10px;
+  margin: 4px 0 14px; padding: 12px 16px;
+  background: var(--paper-2); border: 1px solid var(--rule-dark); border-radius: 9px;
+  font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer;
+  user-select: none; width: fit-content;
+}
+.robot-check input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+.form-done { text-align: center; padding: 26px 10px; }
+.form-done .fd-check {
+  width: 62px; height: 62px; margin: 0 auto 16px; border-radius: 50%;
+  background: #2aa88a; color: #fff; font-size: 30px;
+  display: grid; place-items: center;
+}
+.form-done h3 { font-family: var(--font-display); font-weight: 700; font-size: 26px; color: var(--ink); }
+.form-done p { margin-top: 10px; color: var(--muted); font-size: 14.5px; }
+.form-done .fd-alt a, .form-err a { color: var(--accent); font-weight: 700; }
+.form-err { margin-top: 12px; font-size: 13px; color: #b3423a; }
