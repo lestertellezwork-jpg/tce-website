@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - .5;
         const y = (e.clientY - r.top) / r.height - .5;
-        card.style.transform = 'perspective(1100px) rotateY(' + (x * 3.5).toFixed(2) + 'deg) rotateX(' + (-y * 2.5).toFixed(2) + 'deg)';
+        card.style.transform = 'perspective(1100px) rotateY(' + (x * 2).toFixed(2) + 'deg) rotateX(' + (-y * 1.4).toFixed(2) + 'deg)';
       });
       card.addEventListener('pointerleave', () => { card.style.transform = ''; });
     });
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const bw = 34 + Math.random() * 70;
           const maxH = Math.min(H * (layer ? .40 : .28), layer ? 440 : 320);
           const bh = maxH * (.35 + Math.random() * .65);
-          const b = { x, w: bw, h: bh, layer, ant: Math.random() < .3, glass: layer === 1 && Math.random() < .4, gx: Math.random(), win: [] };
+          const b = { x, w: bw, h: bh, layer, ant: Math.random() < .3, glass: layer === 1 && Math.random() < .4, gx: Math.random(), tier: layer === 1 && Math.random() < .5 ? { w: .5 + Math.random() * .3, h: .14 + Math.random() * .12 } : null, win: [] };
           if (layer === 1) {
             const cols = Math.max(2, Math.floor(bw / 13));
             const rows = Math.max(2, Math.floor(bh / 16));
@@ -530,6 +530,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.beginPath(); ctx.arc(mxp, myp, mr, 0, 7); ctx.fill();
         ctx.fillStyle = 'rgba(19,26,64,.30)';
         ctx.beginPath(); ctx.arc(mxp - mr * .38, myp - mr * .28, mr * .8, 0, 7); ctx.fill();
+        ctx.fillStyle = 'rgba(160,182,228,.35)';
+        for (const [ox2, oy2, r2] of [[.34, .12, .15], [-.02, .38, .10], [.16, -.3, .08], [.42, -.18, .07]]) {
+          ctx.beginPath(); ctx.arc(mxp + mr * ox2, myp + mr * oy2, mr * r2, 0, 7); ctx.fill();
+        }
         ctx.globalAlpha = 1;
       }
       if (day > .02) {
@@ -551,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
         c.x += c.v; if (c.x - 180 * c.s > W) c.x = -200 * c.s;
         const ca = (.04 + .30 * day) * c.o;
         ctx.fillStyle = 'rgba(' + (255) + ',' + Math.round(255 - 45 * warm) + ',' + Math.round(255 - 90 * warm) + ',' + ca.toFixed(3) + ')';
-        for (const [ox, oy, r] of [[0, 0, 34], [30, -10, 26], [62, 2, 30], [30, 8, 24]]) {
+        for (const [ox, oy, r] of [[-20, 6, 19], [0, 0, 30], [24, -14, 22], [48, -8, 27], [72, -2, 21], [56, 9, 24], [26, 10, 25]]) {
           ctx.beginPath(); ctx.arc(c.x + ox * c.s, c.y + oy * c.s, r * c.s, 0, 7); ctx.fill();
         }
       }
@@ -636,10 +640,22 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           ctx.fillStyle = day > .5 ? 'rgba(25,33,70,.85)' : 'rgba(205,220,250,.8)';
           ctx.beginPath();
-          ctx.moveTo(f.x + d * 13, f.y);
-          ctx.lineTo(f.x - d * 9, f.y - 3); ctx.lineTo(f.x - d * 4, f.y);
-          ctx.lineTo(f.x - d * 12, f.y + 5); ctx.lineTo(f.x - d * 7, f.y + .5);
+          ctx.moveTo(f.x + d * 16, f.y);
+          ctx.quadraticCurveTo(f.x + d * 10, f.y - 3.2, f.x - d * 6, f.y - 2.6);
+          ctx.lineTo(f.x - d * 13, f.y - 7);
+          ctx.lineTo(f.x - d * 16, f.y - 7);
+          ctx.lineTo(f.x - d * 14, f.y - 1.4);
+          ctx.lineTo(f.x - d * 16, f.y + 1.8);
+          ctx.lineTo(f.x - d * 8, f.y + 1.8);
+          ctx.quadraticCurveTo(f.x + d * 4, f.y + 2.6, f.x + d * 16, f.y);
           ctx.closePath(); ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(f.x + d * 2, f.y - .4);
+          ctx.lineTo(f.x - d * 7, f.y + 6.2);
+          ctx.lineTo(f.x - d * 11, f.y + 6.2);
+          ctx.lineTo(f.x - d * 2, f.y + .8);
+          ctx.closePath(); ctx.fill();
+          ctx.fillRect(f.x - d * 4 - 2, f.y + 3.6, 4, 2.2);
           if (night > .3 && Math.sin(t * 9) > .2) {
             ctx.fillStyle = 'rgba(255,255,255,.95)';
             ctx.fillRect(f.x - 1, f.y - 1, 2, 2);
@@ -651,14 +667,29 @@ document.addEventListener('DOMContentLoaded', () => {
           const bob = Math.sin(t * 2 + f.ph) * 3;
           const y = f.y + bob;
           ctx.fillStyle = day > .5 ? 'rgba(25,33,70,.85)' : 'rgba(200,216,248,.75)';
-          ctx.beginPath(); ctx.ellipse(f.x, y, 9, 4.5, 0, 0, 7); ctx.fill();
-          ctx.fillRect(f.x - d * 9, y - 1.2, -d * 12, 2.4);
-          ctx.fillRect(f.x - d * 21, y - 5, 1.8, 6);
+          ctx.beginPath(); ctx.ellipse(f.x, y, 9.5, 5, 0, 0, 7); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(f.x + d * 6.5, y - .8, 4.2, 3.4, 0, 0, 7); ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(f.x - d * 7, y - 2.2); ctx.lineTo(f.x - d * 22, y - 3.8);
+          ctx.lineTo(f.x - d * 22, y - 1.2); ctx.lineTo(f.x - d * 7, y + 1.8);
+          ctx.closePath(); ctx.fill();
+          ctx.fillRect(f.x - d * 23, y - 8, 1.8, 7);
+          ctx.strokeStyle = day > .5 ? 'rgba(25,33,70,.7)' : 'rgba(210,225,250,.7)';
+          const trl = 4.5 * Math.abs(Math.sin(t * 22 + f.ph)) + 1.5;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.moveTo(f.x - d * 22, y - 4.5 - trl); ctx.lineTo(f.x - d * 22, y - 4.5 + trl); ctx.stroke();
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(f.x - 8, y + 7.5); ctx.lineTo(f.x + 9, y + 7.5);
+          ctx.moveTo(f.x - 4, y + 4.6); ctx.lineTo(f.x - 5, y + 7.5);
+          ctx.moveTo(f.x + 4, y + 4.6); ctx.lineTo(f.x + 5, y + 7.5);
+          ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(f.x, y - 5); ctx.lineTo(f.x, y - 8); ctx.stroke();
           // spinning rotor
           const rl = 14 * Math.abs(Math.sin(t * 14 + f.ph)) + 4;
           ctx.strokeStyle = day > .5 ? 'rgba(25,33,70,.7)' : 'rgba(210,225,250,.7)';
           ctx.lineWidth = 1.6;
-          ctx.beginPath(); ctx.moveTo(f.x - rl, y - 6); ctx.lineTo(f.x + rl, y - 6); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(f.x - rl, y - 8); ctx.lineTo(f.x + rl, y - 8); ctx.stroke();
           if (night > .3 && Math.sin(t * 6 + f.ph) > 0) {
             ctx.fillStyle = 'rgba(255,95,95,.9)';
             ctx.beginPath(); ctx.arc(f.x, y - 8, 1.6, 0, 7); ctx.fill();
@@ -706,13 +737,36 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = 'rgba(140,165,225,.18)';
         ctx.fillRect(b.x, H - b.h + off0, b.w, 1.4);
         if (b.ant) { ctx.fillStyle = BACK; ctx.fillRect(b.x + b.w / 2 - 1, H - b.h - 14 + off0, 2, 14); }
+        else if (b.w > 46) { ctx.fillStyle = BACK; ctx.fillRect(b.x + 3, H - b.h - 4 + off0, 5, 4); ctx.fillRect(b.x + b.w - 8, H - b.h - 4 + off0, 5, 4); }
       }
       for (const b of bldgs) if (b.layer === 1) {
+        const topY1 = H - b.h + off1;
+        const tierH = b.tier ? b.h * b.tier.h : 0;
+        const tw1 = b.tier ? b.w * b.tier.w : b.w;
+        const tx1 = b.x + (b.w - tw1) / 2;
         ctx.fillStyle = FRONT;
-        ctx.fillRect(b.x, H - b.h + off1, b.w, b.h);
+        if (b.tier) {
+          ctx.fillRect(tx1, topY1, tw1, tierH + 2);
+          ctx.fillRect(b.x, topY1 + tierH, b.w, b.h - tierH);
+        } else {
+          ctx.fillRect(b.x, topY1, b.w, b.h);
+        }
+        ctx.fillRect(tx1, topY1 - 2.5, 3, 2.5); ctx.fillRect(tx1 + tw1 - 3, topY1 - 2.5, 3, 2.5);
+        if (!b.ant && tw1 > 42) {
+          if (b.gx < .45) {
+            const wtx = tx1 + tw1 * .24;
+            ctx.fillRect(wtx + 1, topY1 - 3, 1.4, 3); ctx.fillRect(wtx + 8.6, topY1 - 3, 1.4, 3);
+            ctx.fillRect(wtx, topY1 - 11, 11, 8);
+            ctx.beginPath(); ctx.moveTo(wtx, topY1 - 11); ctx.lineTo(wtx + 5.5, topY1 - 14.5); ctx.lineTo(wtx + 11, topY1 - 11); ctx.closePath(); ctx.fill();
+          } else {
+            const acx = tx1 + tw1 * .58;
+            ctx.fillRect(acx, topY1 - 5, 9, 5); ctx.fillRect(acx + 12, topY1 - 4, 6, 4);
+          }
+        }
         // glossy rooftop cap + moonlit edge
         ctx.fillStyle = 'rgba(' + Math.round(150 + 105 * warm) + ',' + Math.round(178 - 30 * warm) + ',' + Math.round(235 - 145 * warm) + ',' + (0.32 + warm * .40).toFixed(2) + ')';
-        ctx.fillRect(b.x, H - b.h + off1, b.w, 1.7);
+        ctx.fillRect(tx1, topY1, tw1, 1.7);
+        if (b.tier) { ctx.fillRect(b.x, topY1 + tierH, (b.w - tw1) / 2, 1.7); ctx.fillRect(tx1 + tw1, topY1 + tierH, (b.w - tw1) / 2, 1.7); }
         ctx.fillStyle = 'rgba(120,150,220,.10)';
         ctx.fillRect(b.x, H - b.h + off1, 1.6, b.h);
         // glass curtain reflection on some towers
@@ -726,17 +780,29 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.fillStyle = gg;
           ctx.fillRect(gx, H - b.h + off1, gw, b.h);
         }
+        ctx.fillStyle = 'rgba(6,10,26,.16)';
+        for (let mx2 = b.x + 9; mx2 < b.x + b.w - 4; mx2 += 13) ctx.fillRect(mx2, (b.tier ? topY1 + tierH : topY1) + 2, 1, b.h - tierH - 4);
         ctx.fillStyle = FRONT;
         if (b.ant) {
-          ctx.fillRect(b.x + b.w / 2 - 1, H - b.h - 22 + off1, 2, 22);
+          ctx.fillRect(b.x + b.w / 2 - 1, topY1 - 22, 2, 22);
+          ctx.fillRect(b.x + b.w / 2 - 2.4, topY1 - 8, 4.8, 8);
+          ctx.strokeStyle = 'rgba(120,150,220,.35)'; ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(b.x + b.w / 2, topY1 - 20); ctx.lineTo(b.x + b.w / 2 - 9, topY1);
+          ctx.moveTo(b.x + b.w / 2, topY1 - 20); ctx.lineTo(b.x + b.w / 2 + 9, topY1);
+          ctx.stroke();
           const blink = (Math.sin(t * 2 + b.x) + 1) / 2;
           ctx.fillStyle = 'rgba(169,199,247,' + (0.25 + 0.6 * blink).toFixed(3) + ')';
-          ctx.beginPath(); ctx.arc(b.x + b.w / 2, H - b.h - 24 + off1, 2, 0, 7); ctx.fill();
+          ctx.beginPath(); ctx.arc(b.x + b.w / 2, topY1 - 24, 2, 0, 7); ctx.fill();
           ctx.fillStyle = FRONT;
         }
       }
       for (const b of bldgs) if (b.layer === 1) {
         for (const wn of b.win) {
+          if (b.tier && wn.y < b.h * b.tier.h + 4) {
+            const tw2 = b.w * b.tier.w, tx2 = b.x + (b.w - tw2) / 2;
+            if (wn.x < tx2 + 2 || wn.x > tx2 + tw2 - 5) continue;
+          }
           const tw = (Math.sin(t * wn.sp + wn.ph) + 1) / 2;
           ctx.fillStyle = 'rgba(170,198,245,' + ((0.12 + 0.42 * tw) * (1 - day * .8)).toFixed(3) + ')';
           ctx.fillRect(wn.x, H - b.h + wn.y + off1, 3, 4.5);
@@ -890,6 +956,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const gnd = H - 10;
       ctx.fillStyle = 'rgba(8,12,32,.95)'; ctx.fillRect(0, gnd, W, H - gnd);
       ctx.fillStyle = 'rgba(169,199,247,.25)'; ctx.fillRect(0, gnd, W, 1.2);
+      ctx.fillStyle = 'rgba(120,150,220,.20)'; ctx.fillRect(0, gnd - 6, W, 1);
+      ctx.fillStyle = 'rgba(120,150,220,.26)';
+      for (let fx2 = 10; fx2 < W; fx2 += 24) ctx.fillRect(fx2, gnd - 6, 1.2, 6);
 
       for (const s2 of sites) {
         s2.prog += s2.spd;
@@ -910,6 +979,17 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.fillStyle = 'rgba(21,29,66,.95)'; ctx.fillRect(s2.x - 4, y, s2.w + 8, 3.4);
           ctx.fillStyle = 'rgba(169,199,247,.16)'; ctx.fillRect(s2.x - 4, y, s2.w + 8, 1);
         }
+        // edge-bay cross bracing on finished floors
+        ctx.strokeStyle = 'rgba(120,150,220,.20)'; ctx.lineWidth = 1;
+        for (let fl = 2; fl <= built; fl += 2) {
+          const yb0 = gnd - (fl - 1) * s2.floorH, yb1 = gnd - fl * s2.floorH, bay = s2.w / cols;
+          ctx.beginPath();
+          ctx.moveTo(s2.x, yb0); ctx.lineTo(s2.x + bay, yb1);
+          ctx.moveTo(s2.x + bay, yb0); ctx.lineTo(s2.x, yb1);
+          ctx.moveTo(s2.x + s2.w, yb0); ctx.lineTo(s2.x + s2.w - bay, yb1);
+          ctx.moveTo(s2.x + s2.w - bay, yb0); ctx.lineTo(s2.x + s2.w, yb1);
+          ctx.stroke();
+        }
         // floor under construction rises as open framing
         if (built < s2.maxF && frac > 0) {
           const y1 = topY - s2.floorH * frac;
@@ -918,6 +998,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const cx = s2.x + c * (s2.w / cols);
             ctx.beginPath(); ctx.moveTo(cx, topY); ctx.lineTo(cx, y1); ctx.stroke();
           }
+          ctx.strokeStyle = 'rgba(169,199,247,.35)'; ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let c = 0; c < cols; c++) {
+            const cx0 = s2.x + c * (s2.w / cols), cx1 = s2.x + (c + 1) * (s2.w / cols);
+            ctx.moveTo(cx0, topY); ctx.lineTo(cx1, y1);
+            ctx.moveTo(cx1, topY); ctx.lineTo(cx0, y1);
+          }
+          ctx.moveTo(s2.x, y1); ctx.lineTo(s2.x + s2.w, y1);
+          ctx.stroke();
           if (Math.random() < .04) sparks.push({ x: s2.x + Math.random() * s2.w, y: y1 + Math.random() * 6, life: 1 });
         }
         // lit windows on completed floors
@@ -951,13 +1040,30 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.moveTo(mastX, mastTop - 16); ctx.lineTo(mastX, mastTop);
         ctx.stroke();
         ctx.fillStyle = 'rgba(120,150,220,.9)'; ctx.fillRect(cwEnd - 5, mastTop, 10, 7);
-        // trolley, cable, hook carrying a beam
+        ctx.fillRect(cwEnd - 3, mastTop + 7, 6, 3);
+        // operator cab under the slew ring
+        ctx.fillStyle = 'rgba(140,168,235,.9)';
+        ctx.fillRect(mastX - dir * 9, mastTop + 1, 7, 6);
+        ctx.fillStyle = 'rgba(220,232,255,.8)';
+        ctx.fillRect(mastX - dir * 9 + (dir < 0 ? 4 : 1), mastTop + 2, 2.6, 2.4);
+        // trolley, cable, sheave block and hook carrying a girder
         const trX = mastX - dir * (s2.jib * .35 + s2.jib * .3 * Math.sin(t * .5 + s2.ph));
         const hookY = mastTop + 26 + ((topY - 34) - (mastTop + 26)) * (0.5 + 0.5 * Math.sin(t * .35 + s2.ph * 2));
         ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(200,216,248,.75)';
         ctx.beginPath(); ctx.moveTo(trX, mastTop); ctx.lineTo(trX, hookY); ctx.stroke();
-        ctx.fillStyle = 'rgba(169,199,247,.9)'; ctx.fillRect(trX - 1.5, hookY, 3, 5);
-        ctx.fillStyle = 'rgba(56,102,204,.95)'; ctx.fillRect(trX - 14, hookY + 5, 28, 4);
+        ctx.fillStyle = 'rgba(169,199,247,.9)'; ctx.fillRect(trX - 2.5, mastTop + .5, 5, 3.4);
+        ctx.beginPath(); ctx.arc(trX, hookY + 1.5, 2.4, 0, 7); ctx.stroke();
+        ctx.beginPath(); ctx.arc(trX, hookY + 6, 2, .5, 5.4); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(trX, hookY + 6); ctx.lineTo(trX - 12, hookY + 11);
+        ctx.moveTo(trX, hookY + 6); ctx.lineTo(trX + 12, hookY + 11);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(56,102,204,.95)';
+        ctx.fillRect(trX - 15, hookY + 11, 30, 1.6);
+        ctx.fillRect(trX - 12, hookY + 12.6, 24, 2.6);
+        ctx.fillRect(trX - 15, hookY + 15.2, 30, 1.6);
+        ctx.fillStyle = 'rgba(56,102,204,.55)';
+        for (let mi = 0; mi < 3; mi++) ctx.fillRect(mastX + dir * 8 - 8, gnd - 3 - mi * 3.2, 16, 2);
         // beacon
         const bl = (Math.sin(t * 3 + s2.ph) + 1) / 2;
         ctx.fillStyle = 'rgba(255,95,95,' + (0.25 + 0.65 * bl).toFixed(3) + ')';
@@ -1021,12 +1127,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (r.top > vh * .52) {
           const q = Math.min(1, (r.top - vh * .52) / (vh * .48));
           el.style.transformOrigin = 'top center';
-          el.style.transform = 'perspective(1200px) rotateX(' + (q * 8).toFixed(2) + 'deg) translateY(' + (q * 48).toFixed(1) + 'px) scale(' + (1 - q * .05).toFixed(3) + ')';
+          el.style.transform = 'perspective(1200px) rotateX(' + (q * 4.5).toFixed(2) + 'deg) translateY(' + (q * 26).toFixed(1) + 'px) scale(' + (1 - q * .03).toFixed(3) + ')';
           el.style.opacity = (1 - q * .55).toFixed(3);
         } else if (r.bottom < vh * .40) {
           const q = Math.min(1, (vh * .40 - r.bottom) / (vh * .40));
           el.style.transformOrigin = 'bottom center';
-          el.style.transform = 'perspective(1200px) rotateX(' + (-q * 9).toFixed(2) + 'deg) scale(' + (1 + q * .05).toFixed(3) + ')';
+          el.style.transform = 'perspective(1200px) rotateX(' + (-q * 5).toFixed(2) + 'deg) scale(' + (1 + q * .03).toFixed(3) + ')';
           el.style.opacity = (1 - q * .55).toFixed(3);
         } else {
           el.style.transform = '';
@@ -1155,12 +1261,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const kx = hipX + Math.sin(sw) * 10 * dir, ky = hipY + Math.cos(sw) * 10;
         const fx = kx + Math.sin(sw * .5 + .5 * (mode === 'walk' ? 1 : 2)) * 9 * dir, fy = Math.min(gY, ky + Math.cos(sw * .4) * 10);
         wx.beginPath(); wx.moveTo(hipX, hipY); wx.lineTo(kx, ky); wx.lineTo(fx, fy); wx.stroke();
+        wx.fillStyle = NAVY; wx.fillRect(fx - 2, fy - 2, 4 + 2.4 * dir, 2.6);
       }
       // torso
       wx.beginPath(); wx.moveTo(hipX, hipY); wx.lineTo(shX, shY); wx.stroke();
-      // safety vest stripe
-      wx.strokeStyle = ACC; wx.lineWidth = 1.6;
-      wx.beginPath(); wx.moveTo(hipX - dir * 1, hipY - 4); wx.lineTo(shX - dir * 1, shY + 3); wx.stroke();
+      // hi-vis vest body with reflective chevrons
+      wx.fillStyle = ACC;
+      wx.beginPath();
+      wx.moveTo(hipX - 3.5, hipY + 1); wx.lineTo(hipX + 3.5, hipY + 1);
+      wx.lineTo(shX + 4.5, shY + 1); wx.lineTo(shX - 4.5, shY + 1);
+      wx.closePath(); wx.fill();
+      wx.strokeStyle = 'rgba(255,255,255,.85)'; wx.lineWidth = 1;
+      wx.beginPath();
+      wx.moveTo(shX - 3, shY + 3.5); wx.lineTo(hipX - 1.5, hipY - 1);
+      wx.moveTo(shX + 3, shY + 3.5); wx.lineTo(hipX + 1.5, hipY - 1);
+      wx.moveTo(shX - 4, shY + 6.5); wx.lineTo(shX + 4, shY + 6.5);
+      wx.stroke();
       // arms
       wx.strokeStyle = NAVY; wx.lineWidth = 3;
       if (mode === 'inspect' || mode === 'rise') {
@@ -1168,6 +1284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const aim = -0.35 + Math.sin(t2 * 1.6) * .35;
         const hx = shX + Math.cos(aim) * 15 * dir, hy = shY + 4 + Math.sin(aim) * 8;
         wx.beginPath(); wx.moveTo(shX, shY + 2); wx.lineTo(hx, hy); wx.stroke();
+        wx.fillStyle = NAVY; wx.fillRect(hx - 2, hy - 2, 4 + 2 * dir, 3.4);
+        wx.fillStyle = 'rgba(255,244,200,.9)'; wx.fillRect(hx + (dir > 0 ? 2 : -3.4), hy - 1.4, 1.6, 2.2);
         // flashlight beam
         if (mode === 'inspect' && modeT > .5) {
           const bl = 60;
@@ -1194,12 +1312,17 @@ document.addEventListener('DOMContentLoaded', () => {
         wx.beginPath(); wx.moveTo(cbx - 2, cby + 3); wx.lineTo(cbx + 2, cby + 3);
         wx.moveTo(cbx - 2, cby + 6); wx.lineTo(cbx + 2, cby + 6); wx.stroke();
       }
-      // head + hard hat
+      // neck, head + ridged hard hat
+      wx.strokeStyle = NAVY; wx.lineWidth = 2.4;
+      wx.beginPath(); wx.moveTo(shX, shY + 2); wx.lineTo(shX, headY + 4); wx.stroke();
       wx.fillStyle = NAVY;
       wx.beginPath(); wx.arc(shX, headY, 4.6, 0, 7); wx.fill();
       wx.fillStyle = ACC;
       wx.beginPath(); wx.arc(shX, headY - 2.4, 5.4, Math.PI, 0); wx.fill();
       wx.fillRect(shX - 7, headY - 2.6, 14, 2);
+      wx.fillRect(shX - 1.1, headY - 8.6, 2.2, 3);
+      wx.fillStyle = 'rgba(255,255,255,.7)';
+      wx.fillRect(shX - 7, headY - 2.6, 14, .8);
       wx.restore();
     };
 
@@ -1226,13 +1349,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.innerWidth >= 760 && !TCECALM()) {
     const svySVG =
       '<svg viewBox="0 0 64 60" aria-hidden="true">' +
-        '<g stroke="#1C2557" stroke-width="2.4" stroke-linecap="round" fill="none">' +
-          '<path d="M24 20 L12 52 M24 20 L36 52 M24 20 L24 54"/>' +
-          '<path d="M46 30 L46 44 M46 44 L41 54 M46 44 L51 54 M46 34 L39 40 M46 34 L52 30"/>' +
+        '<g stroke="#1C2557" stroke-width="2" stroke-linecap="round" fill="none">' +
+          '<path d="M24 22 L13 52 M24 22 L35 52 M24 22 L24 54"/>' +
+          '<path d="M18.5 38 L29.5 38 M20.5 33 L24 36 M27.5 33 L24 36"/>' +
         '</g>' +
-        '<rect x="17" y="12" width="14" height="9" rx="1.5" fill="#3866cc"/>' +
+        '<g stroke="#1C2557" stroke-width="2.4" stroke-linecap="round" fill="none">' +
+          '<path d="M46 30 L46 44 M46 44 L40.5 54 M46 44 L51.5 54"/>' +
+          '<path d="M46 33 L39 39.5 M46 33 L52.5 29.5"/>' +
+        '</g>' +
+        '<rect x="21.6" y="16.5" width="4.8" height="6" fill="#1C2557"/>' +
+        '<rect x="15" y="9.5" width="18" height="8" fill="#3866cc"/>' +
+        '<rect x="12.2" y="11.4" width="3" height="4.2" fill="#1C2557"/>' +
+        '<circle cx="13.7" cy="13.5" r="1.1" fill="#9db1d6"/>' +
+        '<rect x="20" y="6.4" width="8" height="2.6" fill="#1C2557"/>' +
+        '<rect x="36.6" y="37.8" width="4.6" height="3.2" fill="#3866cc"/>' +
+        '<path d="M39 54 L42.4 54 M50 54 L53.4 54" stroke="#1C2557" stroke-width="2.6" stroke-linecap="round"/>' +
         '<circle cx="46" cy="24" r="4.4" fill="#1C2557"/>' +
         '<path d="M41 21.4 a5.4 5.4 0 0 1 10 0 Z" fill="#3866cc"/>' +
+        '<rect x="40.4" y="20.9" width="11.2" height="1.5" fill="#3866cc"/>' +
       '</svg>';
     document.querySelectorAll('section.sheet').forEach(sec => {
       const svy = document.createElement('div');
