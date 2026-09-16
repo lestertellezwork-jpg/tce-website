@@ -981,8 +981,7 @@ section { padding: clamp(44px, 7vh, 76px) 0; }
 .ed-row .body p { font-size: 14px; margin-bottom: 10px; }
 .tags { margin: 12px 0 16px; }
 .ph-visual { min-height: 210px; font-size: 10.5px; }
-.leader { padding: 32px 0; gap: clamp(22px, 3.6vw, 52px); grid-template-columns: 320px 1fr; }
-.leader.flip { grid-template-columns: 1fr 320px; }
+.leader { padding: 32px 0; gap: clamp(22px, 3.6vw, 52px); }
 .leader h3 { font-size: clamp(24px, 2.8vw, 34px); }
 .leader .creds { font-size: 11px; margin: 8px 0 12px; }
 .leader p { font-size: 14px; margin-bottom: 10px; }
@@ -3221,4 +3220,15 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }   /* no iOS lan
 @media (max-width: 380px) {
   .bc-grid button { font-size: 12px; }        /* calendar stays legible on smallest phones */
   .pf-specs { grid-template-columns: 1fr; }   /* portfolio spec chips stack instead of cramping */
+}
+
+/* ---- leadership blocks: definitive responsive columns ---- */
+@media (min-width: 761px) and (max-width: 1024px) {
+  .leader { grid-template-columns: 320px 1fr; }
+  .leader.flip { grid-template-columns: 1fr 320px; }
+}
+@media (max-width: 760px) {
+  .leader, .leader.flip { grid-template-columns: 1fr; }
+  .leader.flip .photo { order: 0; }
+  .leader p { text-align: left; }
 }
