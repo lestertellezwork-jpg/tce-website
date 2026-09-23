@@ -1460,3 +1460,22 @@ document.addEventListener('DOMContentLoaded', () => {
   cb.innerHTML = '<a href="tel:7865425474" class="pill">Call Now</a><a href="contact.html#form" class="pill solid">Get My Proposal</a>';
   document.body.appendChild(cb);
 });
+
+// v96: thin reading-progress bar for orientation on long pages
+(() => {
+  try {
+    if (TCECALM()) return;
+    const sp = document.createElement('div');
+    sp.className = 'scroll-progress';
+    document.body.appendChild(sp);
+    let tick = false;
+    const paint = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      sp.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      tick = false;
+    };
+    window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
+    paint();
+  } catch (e) {}
+})();
