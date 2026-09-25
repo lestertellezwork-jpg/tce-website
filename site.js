@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- INTRO: the mark assembles from flying steel, then the curtain lifts ----
   (() => { try {
     const calmI = TCECALM();
-    if (calmI || sessionStorage.getItem('tceIntro')) return;
+    if (true || calmI || sessionStorage.getItem('tceIntro')) return;
     sessionStorage.setItem('tceIntro', '1');
     document.documentElement.classList.add('intro-hold');
     const ov = document.createElement('div');
@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toTop.classList.toggle('show', window.scrollY > 700);
   }, { passive: true });
 
-  // Graphite pencil trail
-  if (fine && !TCECALM()) {
+  // Graphite pencil trail (disabled in full-minimal theme)
+  if (fine && !TCECALM() && false) {
     const tc = document.createElement('canvas');
     tc.className = 'pencil-trail';
     document.body.appendChild(tc);
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sci-fi hero background: particle network + city skyline + effects
   const calm = TCECALM();
-  document.querySelectorAll('.hero-v2, .page-hero-v2, .cta-v2').forEach(hero => {
+  document.querySelectorAll('.hero-v2').forEach(hero => {
     try {
     const cv = document.createElement('canvas');
     cv.className = 'hero-canvas';
@@ -1114,9 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sections fold like cards as they enter and leave the viewport
   if (window.innerWidth >= 760 && !TCECALM()) {
-    const folds = Array.from(document.querySelectorAll(
-      'section:not(.hero-v2):not(.page-hero-v2), .stats-v2'
-    )).filter(el => !el.closest('footer'));
+    const folds = [];
     let fTick = false;
     const foldPaint = () => {
       fTick = false;
@@ -1206,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Outlined marquee band above the footer
   const ftEl = document.querySelector('.footer-v2');
-  if (ftEl) {
+  if (ftEl && false) {
     const mq = document.createElement('div');
     mq.className = 'marquee';
     const txt = 'STRUCTURAL DESIGN &nbsp;&middot;&nbsp; MEP SYSTEMS &nbsp;&middot;&nbsp; FORENSIC EVALUATIONS &nbsp;&middot;&nbsp; PRODUCT R+D &nbsp;&middot;&nbsp; MIAMI LAKES &rarr; NATIONWIDE &nbsp;&middot;&nbsp; ';
@@ -1217,7 +1215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Animated forensic inspector patrols the licensure map
   (() => {
     const panel = document.querySelector('.map-panel');
-    if (!panel || window.innerWidth < 760 || TCECALM()) return;
+    return;
     const wc = document.createElement('canvas');
     wc.style.cssText = 'position:absolute;left:0;right:0;bottom:44px;width:100%;height:190px;z-index:2;pointer-events:none;';
     panel.appendChild(wc);
@@ -1368,7 +1366,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '<path d="M41 21.4 a5.4 5.4 0 0 1 10 0 Z" fill="#3866cc"/>' +
         '<rect x="40.4" y="20.9" width="11.2" height="1.5" fill="#3866cc"/>' +
       '</svg>';
-    document.querySelectorAll('section.sheet').forEach(sec => {
+    [].forEach(sec => {
       const svy = document.createElement('div');
       svy.className = 'surveyor';
       svy.innerHTML = svySVG;
@@ -1479,3 +1477,6 @@ document.addEventListener('DOMContentLoaded', () => {
     paint();
   } catch (e) {}
 })();
+
+// v98 full-minimal: inner pages get a solid header treatment
+try { if (!document.querySelector('.hero-v2')) document.body.classList.add('page-light'); } catch (e) {}

@@ -3293,3 +3293,105 @@ section, [id] { scroll-margin-top: 96px; }
 /* article readability */
 article p { line-height: 1.75; }
 article h2 { letter-spacing: -0.015em; }
+
+/* ============================================================
+   v97 — minimalist layer
+   Reference direction: clean SaaS minimal (whitespace, hairlines,
+   sentence case, one soft shadow). Animations untouched.
+   ============================================================ */
+:root {
+  --paper: #fcfcfd;      /* cooler, whiter canvas */
+  --paper-2: #f5f6f8;
+  --rule: #e8eaef;
+  --rule-dark: #d5d9e1;
+}
+/* sheets become clean floating panels: no grid, no stacked paper, no drafting chrome */
+section.sheet {
+  background: #fff;
+  border: 1px solid var(--rule);
+  box-shadow: 0 18px 44px rgba(16, 24, 60, .06);
+  margin: 60px auto;
+}
+.sheet-tag, .sheet-corners { display: none !important; }
+/* decorative orbs off the inner heroes */
+.page-hero-v2 .orb, .page-hero-v2 .blueprint { display: none; }
+/* quiet the section micro-labels */
+.sec-label { color: #9aa1ad; letter-spacing: .22em; }
+.sec-label .n { color: #9aa1ad; }
+.sec-label .n::after { content: ""; }
+/* sentence-case headings — calmer, more editorial */
+.strip-head h2, .lic-head h2, .leader h3, .step h3, .path h3, .work h3, .form-v2 h3, .svc h3 {
+  text-transform: none; letter-spacing: -0.02em;
+}
+/* one obvious CTA, flat-modern */
+.pill.solid { box-shadow: 0 4px 14px rgba(56,102,204,.22); }
+.pill.solid:hover { box-shadow: 0 8px 20px rgba(56,102,204,.30); }
+/* animation panels: single hairline, faint grid */
+.ph-visual {
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(rgba(56,102,204,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,102,204,.03) 1px, transparent 1px),
+    linear-gradient(180deg, #fafbfd, #f4f6fa);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+  box-shadow: none;
+}
+/* marquee band: retired for the minimal look */
+.marquee { display: none; }
+/* cards: hairline + soft hover only */
+.q-card, .door, .work, .pf-card, .path { border-color: var(--rule); }
+.q-card { box-shadow: none; }
+/* extra breathing room in section interiors */
+@media (min-width: 761px) {
+  section.sheet > .wrap { padding-top: 14px; padding-bottom: 14px; }
+}
+
+/* ============================================================
+   v97 — minimalist professional layer
+   Keep every animation; strip ornament. Quiet surfaces,
+   hairline rules, one accent, generous whitespace.
+   ============================================================ */
+/* drawing-sheet ornament off: no corner crop marks, no SHT tags */
+.sheet-tag, .sheet-corners { display: none !important; }
+/* sections: flat white sheets with a single hairline + one soft shadow */
+section.sheet {
+  box-shadow: 0 1px 2px rgba(16,24,60,.05), 0 12px 32px rgba(16,24,60,.06) !important;
+  border: 1px solid var(--rule) !important;
+}
+/* decorative blobs & grid washes off — canvas animations remain */
+.orb, .blueprint { display: none !important; }
+/* animation panels: clean single hairline, no sheen, no inner keyline */
+.ph-visual { box-shadow: none; border: 1px solid var(--rule-dark); }
+.ph-visual::after { display: none; }
+.ph-visual:hover { transform: none; box-shadow: 0 6px 18px rgba(16,24,60,.07); }
+/* quieter buttons: flat, precise */
+.pill.solid, .top-nav .pill.solid { box-shadow: none; }
+.pill.solid:hover { transform: none; box-shadow: none; background: #2f57b0; }
+/* card hovers: barely-there lift */
+.work:hover, .door:hover, .pf-card:hover, .path:hover {
+  transform: none; border-color: rgba(56,102,204,.45);
+  box-shadow: 0 6px 20px rgba(16,24,60,.07);
+}
+/* section labels: small, quiet */
+.sec-label { font-size: 10px; letter-spacing: .22em; color: var(--gray); }
+/* more air between content blocks */
+section.sheet { padding-top: clamp(56px, 7vw, 88px) !important; padding-bottom: clamp(56px, 7vw, 88px) !important; }
+/* one accent only: mute secondary tints */
+.tags i, .pf-chips i { background: transparent; border: 1px solid var(--rule-dark); color: var(--muted); }
+
+/* ============================================================
+   v98 — full-minimal theme
+   Motion lives in the home hero and the footer scene only.
+   Inner pages: flat navy hero band + white editorial content.
+   ============================================================ */
+.pencil-trail, .marquee { display: none !important; }
+/* editorial sections on inner pages: no sheet framing at all */
+body.page-light section.sheet {
+  box-shadow: none !important; border: none !important;
+  border-top: 1px solid var(--rule) !important;
+  width: 100% !important; margin: 0 !important;
+}
+/* flat hero bands: a single hairline to separate from content */
+body.page-light .page-hero-v2 { border-bottom: 1px solid rgba(120,150,220,.18); }
+/* CTA bands: flat navy, no texture */
+.cta-v2 { background: #101a3e; }
