@@ -1,0 +1,79 @@
+{
+  "redirects": [
+    {
+      "source": "/tce-news",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/tce-news/:path*",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/product-rd-services",
+      "destination": "/product-rd.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/product-rd-services/",
+      "destination": "/product-rd.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/:path+",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/client-testimonials",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/client-testimonials/",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/:path+",
+      "destination": "/portfolio.html",
+      "permanent": true
+    },
+    {
+      "source": "/forensic-evaluation-:id",
+      "destination": "/forensic-investigations.html",
+      "permanent": true
+    },
+    {
+      "source": "/forensic-evaluation-:id/",
+      "destination": "/forensic-investigations.html",
+      "permanent": true
+    },
+    {
+      "source": "/balcony-enclosure-legalization",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/balcony-enclosure-legalization/",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path+",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/fatigue-failure",
+      "destination": "/fatigue-failure.html",
+      "permanent": true
+    },
+    {
+      "source": "/fatigue-failure/",
+      "destination": "/fatigue-failure.html",
+      "permanent": true
+    }
+  ]
+}
