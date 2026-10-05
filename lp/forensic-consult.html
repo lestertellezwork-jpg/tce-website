@@ -74,6 +74,19 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
 .done h3{font-size:20px;margin-bottom:8px}
 @media(max-width:860px){.herogrid{grid-template-columns:1fr}.ericgrid{grid-template-columns:1fr;justify-items:center;text-align:left}.ericgrid img{max-width:260px}}
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7XK05D92S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q7XK05D92S');
+  // phone-call clicks as conversions
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
+  }, true);
+</script>
 </head>
 <body>
 <header class="topbar">
@@ -151,7 +164,7 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
     var data={access_key:'6b6640d9-70ca-4de5-8315-e863ac6014ac',subject:f.getAttribute('data-subject')||'TCE Ads lead'};
     new FormData(f).forEach(function(v,k){ if(k!=='botcheck'&&k!=='not-robot') data[k]=v; });
     try{ data.page=location.href; }catch(_){}
-    var ok=function(){ f.innerHTML='<div class="done"><h3>Thank you \u2014 we received your inquiry.</h3><p class="muted">A member of the TCE team will contact you within one business day, usually the same afternoon.</p></div>'; };
+    var ok=function(){ try{ if(typeof gtag==='function') gtag('event','generate_lead',{form_name:f.getAttribute('name')||'lp-form',page_location:location.href}); }catch(_){} f.innerHTML='<div class="done"><h3>Thank you \u2014 we received your inquiry.</h3><p class="muted">A member of the TCE team will contact you within one business day, usually the same afternoon.</p></div>'; };
     if(location.protocol==='file:'){ ok(); return; }
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){ if(r.ok){ok();} else {btn.disabled=false; btn.textContent='Request a Consultation \u2192';} })

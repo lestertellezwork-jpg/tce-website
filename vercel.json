@@ -1,6 +1,71 @@
 {
   "redirects": [
     {
+      "source": "/services/forensics",
+      "destination": "/forensic-investigations.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/forensics/",
+      "destination": "/forensic-investigations.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/structural-design",
+      "destination": "/structural-design.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/structural-design/",
+      "destination": "/structural-design.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/mep-engineering",
+      "destination": "/mep-engineering.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/mep-engineering/",
+      "destination": "/mep-engineering.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/cold-formed-steel",
+      "destination": "/cold-formed-steel.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/cold-formed-steel/",
+      "destination": "/cold-formed-steel.html",
+      "permanent": true
+    },
+    {
+      "source": "/firm/our-team",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/firm/our-team/",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/firm/:path+",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-team",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-team/",
+      "destination": "/firm.html",
+      "permanent": true
+    },
+    {
       "source": "/structural-engineering",
       "destination": "/structural-design.html",
       "permanent": true

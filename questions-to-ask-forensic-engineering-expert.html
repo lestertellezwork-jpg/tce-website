@@ -24,6 +24,19 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "When should an attorney retain a forensic engineer?", "acceptedAnswer": {"@type": "Answer", "text": "Ideally, a forensic engineer should be consulted early enough to evaluate relevant physical evidence before conditions change, repairs occur or potentially important evidence is altered or lost. The appropriate timing depends on the technical questions involved and the circumstances of the matter."}}, {"@type": "Question", "name": "What information should be provided to a forensic engineer?", "acceptedAnswer": {"@type": "Answer", "text": "The information needed depends on the investigation. Photographs, plans, specifications, repair and maintenance records, prior reports, testing data and physical evidence may all be relevant. An engineer can help determine what information is technically important and whether additional investigation or testing is warranted."}}, {"@type": "Question", "name": "What does a forensic engineering expert do in litigation?", "acceptedAnswer": {"@type": "Answer", "text": "A forensic engineering expert may inspect physical conditions or evidence, analyze potential causes of a failure or damage, review technical documentation, perform engineering analysis, develop opinions and communicate findings through reports, deposition or testimony when required."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.trillasengineering.com/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.trillasengineering.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Retaining a Forensic Expert", "item": "https://www.trillasengineering.com/questions-to-ask-forensic-engineering-expert.html"}]}</script>
 <link rel="stylesheet" href="styles.css?v=100">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7XK05D92S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q7XK05D92S');
+  // phone-call clicks as conversions
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
+  }, true);
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -140,6 +153,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=98"></script>
+<script src="site.js?v=101"></script>
 </body>
 </html>

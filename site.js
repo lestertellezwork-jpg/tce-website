@@ -1425,6 +1425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const j = await r.json();
         if (!j.success) throw 0;
+        try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_name: f.getAttribute('name') || 'tce-form', page_location: location.href }); } catch (e) {}
         f.innerHTML = confirmHTML;
       } catch (err) {
         if (err === 'local') { f.innerHTML = confirmHTML + '<p style="font-size:11px;color:var(--gray)"><em>(Local preview &mdash; live site emails the firm.)</em></p>'; return; }

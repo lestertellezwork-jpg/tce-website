@@ -21,6 +21,19 @@
 <link rel="canonical" href="https://www.trillasengineering.com/project-hidden-creek.html">
 <meta property="og:url" content="https://www.trillasengineering.com/project-hidden-creek.html">
 <link rel="stylesheet" href="styles.css?v=100">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7XK05D92S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q7XK05D92S');
+  // phone-call clicks as conversions
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+    if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
+  }, true);
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -161,6 +174,6 @@
   </div>
 </footer>
 
-<script src="site.js?v=98"></script>
+<script src="site.js?v=101"></script>
 </body>
 </html>
