@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Forensic Engineering That Gets to the Cause | Trillas Consulting Engineers</title>
+<meta name="description" content="Independent forensic engineering investigations — cause, extent, and contributing factors. Licensed in 32 jurisdictions. Litigation-ready findings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Hanken+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+:root{--paper:#fbfaf7;--paper2:#f4f2ec;--ink:#20242e;--navy:#1C2557;--dark:#101a3e;--darker:#0d1430;--gray:#676c73;--muted:#565d6b;--rule:#ddd8cc;--ruled:#b9b2a1;--acc:#3866cc}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Hanken Grotesk',-apple-system,Segoe UI,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Barlow Condensed','Hanken Grotesk',sans-serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+h1,h2{text-transform:uppercase;font-weight:700;letter-spacing:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+section{padding:clamp(44px,6vw,76px) 0;border-top:1px solid var(--rule);background:#fff}
+.seclabel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);font-weight:600;margin-bottom:16px}
+.seclabel b{color:var(--acc);margin-right:10px;font-weight:600}
+h2{font-size:clamp(28px,3.4vw,46px);margin-bottom:18px;color:var(--ink)}
+.pill{display:inline-block;padding:13px 24px;border:1px solid var(--ruled);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.pill.solid{background:var(--acc);border-color:var(--acc);color:#fff}
+.pill.solid:hover{background:#2f57b0}
+.check{list-style:none}
+.check li{padding:7px 0 7px 24px;position:relative;color:var(--muted);font-size:14.5px;border-bottom:1px solid var(--rule)}
+.check li::before{content:"\2713";position:absolute;left:0;color:var(--acc);font-weight:700}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px clamp(20px,4vw,48px);background:var(--darker)}
+.topbar img{height:34px}
+.topbar .brandtxt{color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em}
+.tel{color:#fff;font-weight:700;font-size:14px}
+.hero{background:var(--dark);color:#fff;padding:clamp(40px,6vw,72px) 0;border-top:none}
+.herogrid{display:grid;grid-template-columns:1.2fr .9fr;gap:clamp(28px,4vw,64px);align-items:start}
+.hero h1{font-size:clamp(38px,5.2vw,66px);color:#fff;margin:14px 0 18px}
+.hero .lede{color:rgba(255,255,255,.72);max-width:54ch;font-size:16.5px}
+.kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7ea1e8;font-weight:700}
+.formcard{background:#fff;color:var(--ink);padding:26px 24px;border:1px solid var(--ruled)}
+.formcard h2{font-size:21px;margin-bottom:16px}
+.ffield{margin-bottom:12px}
+.ffield label{font-size:12px;font-weight:700;letter-spacing:.06em;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 13px;border:1px solid var(--ruled);background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+textarea{min-height:84px;resize:vertical}
+button.pill{width:100%}
+.fine{font-size:11.5px;color:var(--gray);margin-top:10px;text-align:center}
+.strip{display:flex;flex-wrap:wrap;gap:12px 34px;justify-content:center;padding:18px clamp(20px,4vw,48px);background:var(--paper2);border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px}
+.cols h3{font-size:16.5px;margin-bottom:10px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:22px}
+.step .n{font-family:'IBM Plex Mono',monospace;color:var(--acc);font-weight:700;font-size:13px}
+.step h3{font-size:15.5px;margin:6px 0}
+.step p{font-size:13.5px;color:var(--muted)}
+.darksec{background:var(--dark);color:#fff}
+.darksec h2{color:#fff}
+.darksec p{color:rgba(255,255,255,.72)}
+.darksec .cols h3{color:#fff}
+.darksec .cols p{color:rgba(255,255,255,.66);font-size:14px}
+.darksec .seclabel{color:#7ea1e8}
+.qcard{border:1px solid var(--rule);padding:18px;background:#fff}
+.qcard h3{font-size:15px;margin-bottom:6px}
+.qcard p{font-size:13.5px;color:var(--muted)}
+details{border:1px solid var(--rule);margin-bottom:8px;background:#fff}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:14.5px}
+details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
+.foot{background:var(--darker);color:rgba(255,255,255,.7);padding:28px clamp(20px,4vw,48px);font-size:13px;display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:space-between;border-top:none}
+.foot a{color:rgba(255,255,255,.7);text-decoration:underline;text-underline-offset:3px}
+.muted{color:var(--muted)}
+.ericgrid{display:grid;grid-template-columns:240px 1fr;gap:36px;align-items:center;max-width:980px}
+.done{padding:34px;text-align:center}
+.done h3{font-size:20px;margin-bottom:8px}
+@media(max-width:860px){.herogrid{grid-template-columns:1fr}.ericgrid{grid-template-columns:1fr;justify-items:center;text-align:left}.ericgrid img{max-width:260px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="brandtxt">TRILLAS <span style="font-size:12px;letter-spacing:.14em;color:#9db1d6">CONSULTING ENGINEERS</span></span>
+  <a class="tel" href="tel:7865425474">&#9742; Call TCE &nbsp;786-542-5474</a>
+</header><section class="hero">
+  <div class="wrap herogrid">
+    <div>
+      <span class="kicker">Forensic Engineering Services</span>
+      <h1>Forensic engineering<br>that gets to the cause.</h1>
+      <p class="lede">When property damage, construction defects, component failures, or disputed conditions require answers, Trillas Consulting Engineers provides independent engineering investigations to determine cause, extent, and contributing factors.</p>
+      <p style="margin-top:24px"><a class="pill solid" href="#lead">Request a Forensic Engineering Consultation &rarr;</a></p>
+      <p style="margin-top:16px;color:rgba(255,255,255,.75);font-weight:700">&#9742; Call TCE &nbsp;786-542-5474</p>
+    </div>
+    <div class="formcard" id="lead"><h2>Tell us about your matter</h2><form name="lead-ads-forensic" data-lp-form="1" data-subject="Google Ads lead — Forensic LP (full)"><input type="hidden" name="source" value="google-ads"><input type="checkbox" name="botcheck" style="display:none" tabindex="-1"><div class="ffield"><label>Name *</label><input type="text" name="name" autocomplete="name" required></div><div class="ffield"><label>Email *</label><input type="email" name="email" autocomplete="email" required></div><div class="ffield"><label>Company / Firm</label><input type="text" name="company" autocomplete="organization"></div><div class="ffield"><label>Phone *</label><input type="tel" name="phone" autocomplete="tel" required></div><div class="ffield"><label>Type of Matter *</label><select name="matter" required><option value="">Select an option</option><option>Property / Storm Damage Claim</option><option>Construction Defect</option><option>Structural or Component Failure</option><option>Water / Moisture Intrusion</option><option>Litigation / Expert Witness Support</option><option>Other</option></select></div><div class="ffield"><label>Brief Description</label><textarea name="message" placeholder="What happened, and what needs to be determined?"></textarea></div><div class="ffield"><label>State *</label><select name="state" required><option value="">Select a state</option>
+              <option>Alabama</option>
+              <option>Arizona</option>
+              <option>Arkansas</option>
+              <option>Colorado</option>
+              <option>Connecticut</option>
+              <option>Delaware</option>
+              <option>District of Columbia</option>
+              <option>Florida</option>
+              <option>Georgia</option>
+              <option>Illinois</option><option>Indiana</option>
+              <option>Iowa</option>
+              <option>Kansas</option>
+              <option>Kentucky</option>
+              <option>Louisiana</option>
+              <option>Maryland</option>
+              <option>Massachusetts</option><option>Michigan</option>
+              <option>Mississippi</option>
+              <option>Missouri</option>
+              <option>Nebraska</option>
+              <option>New York</option>
+              <option>North Carolina</option>
+              <option>North Dakota</option>
+              <option>Ohio</option>
+              <option>Pennsylvania</option>
+              <option>Puerto Rico</option>
+              <option>Rhode Island</option>
+              <option>South Carolina</option>
+              <option>Tennessee</option>
+              <option>Texas</option>
+              <option>Virginia</option>
+              <option>Other / Multiple States</option>
+        </select></div><label style="display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;margin:12px 0"><input type="checkbox" name="not-robot" required style="width:auto"> I&rsquo;m not a robot</label><button class="pill solid" type="submit">Request a Consultation &rarr;</button></form><p class="fine">A member of the TCE team will contact you regarding your inquiry.</p></div>
+  </div>
+</section>
+<div class="strip">
+  <span>&#128205; Licensed Across 32 Jurisdictions</span>
+  <span>&#128101; Multidisciplinary Engineering Expertise</span>
+  <span>&#9878; Litigation Support &amp; Expert Witness</span>
+</div><section>
+  <div class="wrap">
+    <div class="seclabel"><b>01</b>When the Cause Matters, the Investigation Matters</div>
+    <div class="ericgrid">
+      <img src="../images/eric-trillas.jpg" alt="Eric Trillas, P.E." style="border:1px solid var(--ruled)" onerror="this.remove()">
+      <div>
+        <h2 style="margin-bottom:4px">Eric Trillas, P.E.</h2>
+        <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:700;margin-bottom:12px">President &middot; P.E. &middot; S.I. &middot; FRSE &middot; ICC DRI</p>
+        <p class="muted" style="max-width:62ch">Eric Trillas leads a multidisciplinary engineering team that investigates complex property, construction and failure matters. TCE works with attorneys, insurance professionals, property owners and other stakeholders to deliver independent, technically defensible engineering findings.</p>
+        <p style="margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:21px">Engineering that holds up. On site, and in court.</p>
+      </div>
+    </div>
+  </div>
+</section><section>
+  <div class="wrap">
+    <div class="seclabel"><b>02</b>Forensic Engineering for Complex Property, Construction &amp; Failure Matters</div>
+    <h2>What we investigate.</h2>
+    <div class="cols">
+      <div><h3>Property Damage</h3><ul class="check"><li>Storm and wind damage</li><li>Hail damage</li><li>Water intrusion</li><li>Roof damage</li><li>Building envelope failures</li></ul></div>
+      <div><h3>Construction Defects</h3><ul class="check"><li>Design and construction deficiencies</li><li>Installation issues</li><li>Building envelope conditions</li><li>Structural concerns</li><li>Code-related issues</li></ul></div>
+      <div><h3>Structural &amp; Component Failures</h3><ul class="check"><li>Structural failures</li><li>Material failures</li><li>Fatigue failures</li><li>Product/component failures</li><li>Cause and origin investigations</li></ul></div>
+      <div><h3>Disputes &amp; Litigation</h3><ul class="check"><li>Expert engineering analysis</li><li>Litigation support</li><li>Expert witness services</li><li>Technical document review</li><li>Engineering reports and opinions</li></ul></div>
+    </div>
+    <p style="text-align:center;margin-top:30px"><a class="pill solid" href="#lead">Discuss Your Matter With an Engineer &rarr;</a></p>
+  </div>
+</section><section style="background:var(--paper)">
+  <div class="wrap">
+    <div class="seclabel"><b>03</b>From Investigation to Defensible Findings</div>
+    <h2>How TCE works.</h2>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><h3>Understand the Matter</h3><p>Review the reported condition, background information, documentation and questions requiring engineering analysis.</p></div>
+      <div class="step"><span class="n">02</span><h3>Investigate</h3><p>Conduct site observations, measurements, documentation, testing or evidence review.</p></div>
+      <div class="step"><span class="n">03</span><h3>Analyze</h3><p>Evaluate physical evidence alongside applicable plans, records, codes, standards and engineering principles.</p></div>
+      <div class="step"><span class="n">04</span><h3>Develop Findings</h3><p>Determine probable cause, extent, contributing factors and other conclusions supported by the investigation.</p></div>
+      <div class="step"><span class="n">05</span><h3>Communicate</h3><p>Provide clear findings through reporting, consultation, litigation support or expert testimony.</p></div>
+    </div>
+  </div>
+</section><section>
+  <div class="wrap">
+    <div class="seclabel"><b>04</b>Engineering Support for Professionals Who Need Defensible Answers</div>
+    <h2>Who we serve.</h2>
+    <div class="cols">
+      <div class="qcard"><h3>Insurance Carriers &amp; TPAs</h3><p>Cause-and-extent investigations for property claims and disputed conditions.</p></div>
+      <div class="qcard"><h3>Law Firms</h3><p>Engineering investigations, technical opinions, expert reports, litigation support and testimony.</p></div>
+      <div class="qcard"><h3>Public Adjusters</h3><p>Independent engineering analysis of property damage and disputed conditions.</p></div>
+      <div class="qcard"><h3>Property Owners, Managers, REITs &amp; HOAs</h3><p>Investigation of damage, defects, failures and building conditions.</p></div>
+      <div class="qcard"><h3>Roofing, Restoration &amp; Construction Professionals</h3><p>Engineering analysis when causation, performance, damage or expert questions arise.</p></div>
+    </div>
+  </div>
+</section><section class="darksec">
+  <div class="wrap">
+    <div class="seclabel"><b>05</b>Why TCE</div>
+    <h2>Engineering conclusions have to hold up.</h2>
+    <p style="max-width:70ch;margin-bottom:22px">When engineering findings may influence a claim, repair strategy, dispute or litigation, conclusions require more than observations. They need a technically defensible foundation.</p>
+    <div class="cols">
+      <div><h3>Multidisciplinary Perspective</h3><p>Structural, building envelope, MEP, product and other disciplines.</p></div>
+      <div><h3>Direct Engineer Access</h3><p>Direct communication with experienced engineers throughout the engagement.</p></div>
+      <div><h3>Broad Geographic Reach</h3><p>Engineering services throughout TCE&rsquo;s licensed jurisdictions.</p></div>
+      <div><h3>Litigation-Ready Expertise</h3><p>Findings developed with an understanding of the scrutiny engineering opinions may face.</p></div>
+    </div>
+  </div>
+</section><section>
+  <div class="wrap">
+    <div class="seclabel"><b>06</b>The Questions Our Investigations Help Answer</div>
+    <h2>Real-world forensic questions.</h2>
+    <div class="cols">
+      <div class="qcard"><h3>Roof / Storm Loss</h3><p>What caused the observed damage, and which conditions are attributable to the reported event?</p></div>
+      <div class="qcard"><h3>Water Intrusion</h3><p>Where is the water entering, why is it occurring, and what conditions contributed?</p></div>
+      <div class="qcard"><h3>Construction Defect</h3><p>Is the condition related to design, materials, installation, maintenance, environmental exposure or another cause?</p></div>
+      <div class="qcard"><h3>Component Failure</h3><p>How did the component fail, and what physical evidence supports the probable failure mechanism?</p></div>
+      <div class="qcard"><h3>Structural Condition</h3><p>What caused the observed cracking, movement, distress, deterioration or failure?</p></div>
+    </div>
+  </div>
+</section><section style="background:var(--paper)">
+  <div class="wrap">
+    <div class="seclabel"><b>07</b>Forensic Engineering Across 32 Jurisdictions</div>
+    <h2>Licensed where your matter is.</h2>
+    <p style="font-weight:700;margin-bottom:10px">Priority service markets: &nbsp;Texas &nbsp;|&nbsp; Florida &nbsp;|&nbsp; Illinois &nbsp;|&nbsp; Ohio &nbsp;|&nbsp; Arkansas</p>
+    <p class="muted" style="max-width:78ch;font-size:14px">TCE is licensed to provide engineering services across: Alabama, Arizona, Arkansas, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maryland, Massachusetts, Michigan, Mississippi, Missouri, Nebraska, New York, North Carolina, North Dakota, Ohio, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, Tennessee, Texas, and Virginia.</p>
+    <p style="margin-top:20px"><a class="pill solid" href="#lead">Have a matter in one of these jurisdictions? Talk with TCE &rarr;</a></p>
+  </div>
+</section><section>
+  <div class="wrap" style="max-width:980px">
+    <h2>Forensic engineering FAQs.</h2>
+    <details><summary>What does a forensic engineer investigate?</summary><div>Forensic engineers investigate the cause, extent and contributing factors of property damage, construction defects, and structural or component failures &mdash; developing findings supported by physical evidence, documentation, codes and engineering principles.</div></details>
+    <details><summary>When should a forensic engineer be retained?</summary><div>Early enough to evaluate relevant physical evidence before conditions change, repairs occur, or potentially important evidence is altered or lost.</div></details>
+    <details><summary>What types of property damage does TCE investigate?</summary><div>Hurricane, wind, hail, water intrusion, fire and lightning losses, plus construction defects &mdash; for all building components from structure to envelope to interior finishes.</div></details>
+    <details><summary>Does TCE provide expert witness and litigation support services?</summary><div>Yes. Reports are written to be defensible under oath, and the engineer who inspected the matter stands behind the opinions through deposition and testimony when required.</div></details>
+    <details><summary>What information should I have available before contacting a forensic engineer?</summary><div>Whatever exists: photographs, plans, repair records, prior reports or testing. An engineer can tell you what is technically relevant and whether further investigation is justified.</div></details>
+    <details><summary>Where does TCE provide forensic engineering services?</summary><div>Nationwide, with licensure in 30 states, D.C. and Puerto Rico &mdash; and current priority markets in Texas, Florida, Illinois, Ohio and Arkansas.</div></details>
+  </div>
+</section><section class="darksec">
+  <div class="wrap" style="text-align:center">
+    <h2>Need engineering answers?</h2>
+    <p style="max-width:62ch;margin:0 auto 10px">Whether you&rsquo;re evaluating a property claim, preparing for litigation, investigating a construction defect or determining why a building or component failed, the first step is defining the engineering question.</p>
+    <p style="font-weight:700;color:#fff;margin-bottom:22px">Tell TCE what happened and what needs to be determined.</p>
+    <p><a class="pill solid" href="#lead">Request a Forensic Engineering Consultation &rarr;</a></p>
+    <p style="margin-top:16px;font-weight:700;color:rgba(255,255,255,.8)">&#9742; Call TCE &nbsp;786-542-5474</p>
+  </div>
+</section><footer class="foot">
+  <span>Trillas Consulting Engineers, LLC &middot; 15476 NW 77 Court, Suite 195, Miami Lakes, FL 33016</span>
+  <span><a href="tel:7865425474">786-542-5474</a> &middot; <a href="mailto:info@trillasengineering.com">info@trillasengineering.com</a> &middot; <a href="https://www.trillasengineering.com/privacy.html">Privacy</a> &middot; <a href="https://www.trillasengineering.com/terms.html">Terms</a></span>
+</footer>
+<script>
+document.querySelectorAll('form[data-lp-form]').forEach(function(f){
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Sending\u2026';
+    var data={access_key:'6b6640d9-70ca-4de5-8315-e863ac6014ac',subject:f.getAttribute('data-subject')||'TCE Ads lead'};
+    new FormData(f).forEach(function(v,k){ if(k!=='botcheck'&&k!=='not-robot') data[k]=v; });
+    try{ data.page=location.href; }catch(_){}
+    var ok=function(){ f.innerHTML='<div class="done"><h3>Thank you \u2014 we received your inquiry.</h3><p class="muted">A member of the TCE team will contact you within one business day, usually the same afternoon.</p></div>'; };
+    if(location.protocol==='file:'){ ok(); return; }
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){ if(r.ok){ok();} else {btn.disabled=false; btn.textContent='Request a Consultation \u2192';} })
+      .catch(function(){ btn.disabled=false; btn.textContent='Request a Consultation \u2192'; });
+  });
+});
+</script>
+</body>
+</html>
