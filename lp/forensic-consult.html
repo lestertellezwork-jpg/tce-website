@@ -87,6 +87,59 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
     if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
   }, true);
 </script>
+
+<style>
+/* ---- LP motion system ---- */
+@media (prefers-reduced-motion: no-preference) {
+  /* hero entrance: staggered rise */
+  .hero .kicker, .hero h1, .hero .lede, .hero .herogrid > div:first-child p { opacity: 0; animation: lpUp .7s cubic-bezier(.2,.65,.25,1) forwards; }
+  .hero .kicker { animation-delay: .05s }
+  .hero h1 { animation-delay: .15s }
+  .hero .lede { animation-delay: .3s }
+  .hero .herogrid > div:first-child p:nth-of-type(2) { animation-delay: .45s }
+  .hero .herogrid > div:first-child p:nth-of-type(3) { animation-delay: .55s }
+  .formcard { opacity: 0; animation: lpIn .8s cubic-bezier(.2,.65,.25,1) .35s forwards; }
+  @keyframes lpUp { from { opacity: 0; transform: translateY(22px) } to { opacity: 1; transform: none } }
+  @keyframes lpIn { from { opacity: 0; transform: translateX(34px) } to { opacity: 1; transform: none } }
+  /* drifting blueprint grid behind the hero */
+  .hero { position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: -60px; pointer-events: none; opacity: .5;
+    background: linear-gradient(rgba(126,161,232,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(126,161,232,.07) 1px, transparent 1px);
+    background-size: 44px 44px; animation: lpGrid 26s linear infinite; }
+  .hero > .wrap { position: relative; z-index: 1; }
+  @keyframes lpGrid { to { transform: translate(44px, 44px) } }
+  /* scroll reveal */
+  .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.65,.25,1); }
+  .rv.in { opacity: 1; transform: none; }
+  /* process steps cascade */
+  .steps .step { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+  .steps.in .step { opacity: 1; transform: none; }
+  .steps.in .step:nth-child(1){transition-delay:.0s}.steps.in .step:nth-child(2){transition-delay:.12s}
+  .steps.in .step:nth-child(3){transition-delay:.24s}.steps.in .step:nth-child(4){transition-delay:.36s}
+  .steps.in .step:nth-child(5){transition-delay:.48s}
+  /* cards cascade */
+  .cols .qcard { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+  .cols.in .qcard { opacity: 1; transform: none; }
+  .cols.in .qcard:nth-child(1){transition-delay:.0s}.cols.in .qcard:nth-child(2){transition-delay:.1s}
+  .cols.in .qcard:nth-child(3){transition-delay:.2s}.cols.in .qcard:nth-child(4){transition-delay:.3s}
+  .cols.in .qcard:nth-child(5){transition-delay:.4s}
+  /* checkmarks tick in */
+  .check li { opacity: 0; transform: translateX(-10px); transition: opacity .4s ease, transform .4s ease; }
+  section.in .check li { opacity: 1; transform: none; }
+  section.in .check li:nth-child(1){transition-delay:.05s}section.in .check li:nth-child(2){transition-delay:.12s}
+  section.in .check li:nth-child(3){transition-delay:.19s}section.in .check li:nth-child(4){transition-delay:.26s}
+  section.in .check li:nth-child(5){transition-delay:.33s}section.in .check li:nth-child(6){transition-delay:.4s}
+  /* CTA sheen every few seconds */
+  .pill.solid { position: relative; overflow: hidden; }
+  .pill.solid::after { content: ""; position: absolute; top: 0; bottom: 0; width: 46%; left: -60%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.34), transparent);
+    animation: lpSheen 4.6s ease-in-out infinite; }
+  @keyframes lpSheen { 0%, 72% { left: -60% } 88%, 100% { left: 130% } }
+  /* qcard hover */
+  .qcard { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+  .qcard:hover { border-color: rgba(56,102,204,.5); box-shadow: 0 10px 26px rgba(16,24,60,.1); transform: translateY(-3px); }
+}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -143,9 +196,9 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
 </div><section>
   <div class="wrap" style="max-width:980px">
     <div class="cols">
-      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px">32</h3><p class="muted" style="font-size:14px"><strong>Licensed jurisdictions</strong> &mdash; a stamp that counts, wherever your loss is.</p></div>
-      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px">10+</h3><p class="muted" style="font-size:14px"><strong>Years consulting</strong> for carriers, attorneys, adjusters and owners nationwide.</p></div>
-      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px">1</h3><p class="muted" style="font-size:14px"><strong>Business day</strong> &mdash; you&rsquo;ll hear back within one, usually the same afternoon.</p></div>
+      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="32">0</span></h3><p class="muted" style="font-size:14px"><strong>Licensed jurisdictions</strong> &mdash; a stamp that counts, wherever your loss is.</p></div>
+      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="10">0</span>+</h3><p class="muted" style="font-size:14px"><strong>Years consulting</strong> for carriers, attorneys, adjusters and owners nationwide.</p></div>
+      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="1">0</span></h3><p class="muted" style="font-size:14px"><strong>Business day</strong> &mdash; you&rsquo;ll hear back within one, usually the same afternoon.</p></div>
     </div>
     <div style="border:1px solid var(--rule);padding:22px;margin-top:30px">
       <p class="muted" style="font-size:15px">&ldquo;Engineering that holds up. On site, and in court.&rdquo; &mdash; Investigations led by <strong>Eric Trillas, P.E., S.I., FRSE, ICC DRI</strong>, with clear causation opinions, code-referenced documentation, and testimony-ready reports.</p>
@@ -171,6 +224,38 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
       .catch(function(){ btn.disabled=false; btn.textContent='Request a Consultation \u2192'; });
   });
 });
+</script>
+
+<script>
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // tag revealables
+  document.querySelectorAll('section:not(.hero) .wrap > *').forEach(function(el){
+    if (!el.classList.contains('steps') && !el.classList.contains('cols')) el.classList.add('rv');
+  });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .18 });
+  document.querySelectorAll('.rv, .steps, .cols, section').forEach(function(el){ io.observe(el); });
+  // count-up stats
+  document.querySelectorAll('.cnt').forEach(function(el){
+    var to = parseInt(el.getAttribute('data-to'), 10) || 0;
+    var cio = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return; cio.unobserve(el);
+        var t0 = performance.now(), dur = 1100;
+        (function tick(now){
+          var p = Math.min((now - t0) / dur, 1);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+    }, { threshold: .5 });
+    cio.observe(el);
+  });
+})();
 </script>
 </body>
 </html>
