@@ -1481,3 +1481,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // v98 full-minimal: inner pages get a solid header treatment
 try { if (!document.querySelector('.hero-v2')) document.body.classList.add('page-light'); } catch (e) {}
+
+// ---- Resource downloads: capture email via Web3Forms, then deliver the PDF ----
+document.querySelectorAll('form[data-rs-form]').forEach(f => {
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+    const data = { access_key: TCE_FORMS_KEY, subject: 'Checklist download: ' + f.getAttribute('data-asset'),
+      email: f.querySelector('[name="email"]').value, asset: f.getAttribute('data-asset'), page: location.href };
+    try { if (location.protocol !== 'file:') await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (err) {}
+    try { if (typeof gtag === 'function') gtag('event', 'lead_magnet_download', { asset: f.getAttribute('data-asset') }); } catch (err) {}
+    const pdf = f.getAttribute('data-pdf');
+    f.innerHTML = '<p style="color:var(--accent);font-weight:700">✓ Ready — <a href="' + pdf + '" download style="text-decoration:underline">download your PDF</a></p>';
+    const a = document.createElement('a'); a.href = pdf; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+  });
+});
+
+// ---- Exit-intent offer: desktop only, once per visitor per week ----
+(() => {
+  try {
+    if (window.innerWidth < 900 || TCECALM()) return;
+    if (localStorage.getItem('tceExitShown') && Date.now() - (+localStorage.getItem('tceExitShown')) < 6048e5) return;
+    if (location.pathname.indexOf('/lp/') !== -1 || location.pathname.indexOf('resources') !== -1 || location.pathname.indexOf('thanks') !== -1) return;
+    let armed = false; setTimeout(() => { armed = true; }, 12000);
+    const show = () => {
+      if (!armed || document.getElementById('tce-exit')) return;
+      localStorage.setItem('tceExitShown', String(Date.now()));
+      const w = document.createElement('div'); w.id = 'tce-exit';
+      w.innerHTML =
+        '<div class="xi-card" role="dialog" aria-modal="true" aria-label="Free checklist">' +
+        '<button class="xi-x" aria-label="Close">&times;</button>' +
+        '<p class="xi-k">Before you go &mdash; a free tool from our engineers</p>' +
+        '<h3>Post-Storm Roof Inspection Checklist</h3>' +
+        '<p class="xi-p">What to document after hurricane, wind, or hail &mdash; before repairs erase the evidence. Attorneys: get the <a href="resources.html#attorneys" style="text-decoration:underline">expert retention checklist</a> instead.</p>' +
+        '<form data-rs-form="1" data-pdf="downloads/tce-post-storm-roof-checklist.pdf" data-asset="Post-Storm Roof Checklist (exit offer)">' +
+        '<input type="checkbox" name="botcheck" style="display:none" tabindex="-1">' +
+        '<div style="display:flex;gap:8px"><input type="email" name="email" required placeholder="Work email">' +
+        '<button class="pill solid" type="submit">Get the PDF &rarr;</button></div></form>' +
+        '<p class="xi-alt">Or leave your number and we’ll call you within 2 business hours: <a href="contact.html#form">request a callback &rarr;</a></p>' +
+        '</div>';
+      document.body.appendChild(w);
+      w.addEventListener('click', e => { if (e.target === w || e.target.classList.contains('xi-x')) w.remove(); });
+      document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') { w.remove(); document.removeEventListener('keydown', esc); } });
+      const nf = w.querySelector('form[data-rs-form]');
+      nf.addEventListener('submit', async e => {
+        e.preventDefault();
+        const data = { access_key: TCE_FORMS_KEY, subject: 'Checklist download: exit offer', email: nf.querySelector('[name="email"]').value, page: location.href };
+        try { if (location.protocol !== 'file:') await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (err) {}
+        try { if (typeof gtag === 'function') gtag('event', 'lead_magnet_download', { asset: 'exit-offer' }); } catch (err) {}
+        const a = document.createElement('a'); a.href = 'downloads/tce-post-storm-roof-checklist.pdf'; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+        nf.innerHTML = '<p style="color:var(--accent);font-weight:700">✓ Downloading — check your downloads folder.</p>';
+      });
+    };
+    document.documentElement.addEventListener('mouseleave', e => { if (e.clientY <= 0) show(); });
+  } catch (e) {}
+})();
+
+// ---- Mobile sticky call bar ----
+(() => {
+  try {
+    if (window.innerWidth >= 760) return;
+    if (sessionStorage.getItem('tceCallBar') || location.pathname.indexOf('/lp/') !== -1) return;
+    const bar = document.createElement('div'); bar.className = 'call-bar';
+    bar.innerHTML = '<a href="tel:7865425474">&#9742;&nbsp; Call TCE &mdash; 786-542-5474</a><a class="cb-form" href="contact.html#form">Get Proposal</a><button class="cb-x" aria-label="Dismiss">&times;</button>';
+    document.body.appendChild(bar);
+    bar.querySelector('.cb-x').addEventListener('click', () => { sessionStorage.setItem('tceCallBar','1'); bar.remove(); });
+  } catch (e) {}
+})();

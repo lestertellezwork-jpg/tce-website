@@ -140,6 +140,18 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
   .qcard:hover { border-color: rgba(56,102,204,.5); box-shadow: 0 10px 26px rgba(16,24,60,.1); transform: translateY(-3px); }
 }
 </style>
+<style>
+.fstep2{display:none}form.step2 .fstep1{display:none}form.step2 .fstep2{display:block}
+.fprog{display:flex;gap:6px;margin-bottom:14px}.fprog i{height:3px;flex:1;background:var(--rule)}.fprog i.on{background:var(--acc)}
+.fnext{width:100%}
+</style><!-- ===== RETARGETING PIXELS (inactive placeholders) =====
+To activate: replace the ID and remove the comment markers around each block.
+LinkedIn Insight Tag:
+<script type="text/javascript">_linkedin_partner_id = "YOUR_LINKEDIN_PARTNER_ID"; window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || []; window._linkedin_data_partner_ids.push(_linkedin_partner_id);</script>
+<script type="text/javascript" src="https://snap.licdn.com/li.lms-analytics/insight.min.js" async></script>
+Meta Pixel:
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','YOUR_META_PIXEL_ID');fbq('track','PageView');</script>
+===== END PIXELS ===== -->
 </head>
 <body>
 <header class="topbar">
@@ -154,7 +166,7 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
       <p style="margin-top:24px"><a class="pill solid" href="#lead">Request a Forensic Engineering Consultation &rarr;</a></p>
       <p style="margin-top:16px;color:rgba(255,255,255,.75);font-weight:700">&#9742; Call TCE &nbsp;786-542-5474</p>
     </div>
-    <div class="formcard" id="lead"><h2>Tell us about your matter</h2><form name="lead-ads-forensic" data-lp-form="1" data-subject="Google Ads lead — Forensic LP (full)"><input type="hidden" name="source" value="google-ads"><input type="checkbox" name="botcheck" style="display:none" tabindex="-1"><div class="ffield"><label>Name *</label><input type="text" name="name" autocomplete="name" required></div><div class="ffield"><label>Email *</label><input type="email" name="email" autocomplete="email" required></div><div class="ffield"><label>Company / Firm</label><input type="text" name="company" autocomplete="organization"></div><div class="ffield"><label>Phone *</label><input type="tel" name="phone" autocomplete="tel" required></div><div class="ffield"><label>Type of Matter *</label><select name="matter" required><option value="">Select an option</option><option>Property / Storm Damage Claim</option><option>Construction Defect</option><option>Structural or Component Failure</option><option>Water / Moisture Intrusion</option><option>Litigation / Expert Witness Support</option><option>Other</option></select></div><div class="ffield"><label>Brief Description</label><textarea name="message" placeholder="What happened, and what needs to be determined?"></textarea></div><div class="ffield"><label>State *</label><select name="state" required><option value="">Select a state</option>
+    <div class="formcard" id="lead"><h2>Tell us about your matter</h2><form name="lead-ads-forensic" data-lp-form="1" data-subject="Google Ads lead — Forensic LP (full)"><input type="hidden" name="source" value="google-ads"><input type="checkbox" name="botcheck" style="display:none" tabindex="-1"><div class="fprog"><i class="on"></i><i></i></div><div class="fstep1"><div class="ffield"><label>State *</label><select name="state" required><option value="">Select a state</option>
               <option>Alabama</option>
               <option>Arizona</option>
               <option>Arkansas</option>
@@ -186,7 +198,7 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
               <option>Texas</option>
               <option>Virginia</option>
               <option>Other / Multiple States</option>
-        </select></div><label style="display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;margin:12px 0"><input type="checkbox" name="not-robot" required style="width:auto"> I&rsquo;m not a robot</label><button class="pill solid" type="submit">Request a Consultation &rarr;</button></form><p class="fine">A member of the TCE team will contact you regarding your inquiry.</p></div>
+        </select></div><div class="ffield"><label>Type of Matter *</label><select name="matter" required><option value="">Select an option</option><option>Property / Storm Damage Claim</option><option>Construction Defect</option><option>Structural or Component Failure</option><option>Water / Moisture Intrusion</option><option>Litigation / Expert Witness Support</option><option>Other</option></select></div><button type="button" class="pill solid fnext">Continue &rarr;</button><p style="font-size:11px;color:var(--gray);margin-top:8px;text-align:center">Takes under a minute &middot; no obligation</p></div><div class="fstep2"><div class="ffield"><label>Name *</label><input type="text" name="name" autocomplete="name" required></div><div class="ffield"><label>Email *</label><input type="email" name="email" autocomplete="email" required></div><div class="ffield"><label>Phone *</label><input type="tel" name="phone" autocomplete="tel" required></div><div class="ffield"><label>Company / Firm</label><input type="text" name="company" autocomplete="organization"></div><div class="ffield"><label>Brief Description</label><textarea name="message" placeholder="What happened, and what needs to be determined?"></textarea></div><label style="display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;margin:12px 0"><input type="checkbox" name="not-robot" required style="width:auto"> I&rsquo;m not a robot</label><button class="pill solid" type="submit">Request a Consultation &rarr;</button></div></form><p class="fine">A member of the TCE team will contact you regarding your inquiry.</p></div>
   </div>
 </section>
 <div class="strip">
@@ -351,5 +363,18 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
   });
 })();
 </script>
-</body>
+<script>
+document.querySelectorAll('form[data-lp-form]').forEach(function(f){
+  var next=f.querySelector('.fnext'); if(!next) return;
+  next.addEventListener('click', function(){
+    var ok=true;
+    f.querySelectorAll('.fstep1 [required]').forEach(function(el){ if(!el.reportValidity()) ok=false; });
+    if(!ok) return;
+    f.classList.add('step2');
+    var p=f.querySelectorAll('.fprog i'); if(p[1]) p[1].classList.add('on');
+    try{ if(typeof gtag==='function') gtag('event','form_step_1',{page_location:location.href}); }catch(_){}
+    var first=f.querySelector('.fstep2 input'); if(first) first.focus();
+  });
+});
+</script></body>
 </html>
