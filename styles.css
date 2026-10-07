@@ -3483,3 +3483,8 @@ form.step2 .fstep2 { display: block; }
 .bt-link:hover { text-decoration: underline; }
 @media (max-width: 900px) { .bento { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .bento { grid-template-columns: 1fr; } .b2w, .b2h { grid-column: auto; grid-row: auto; } }
+
+/* ---- fix: mobile call bar must never render on desktop (overlapped bottom banner) ---- */
+@media (min-width: 760px) { .call-bar { display: none !important; } body:has(.call-bar) footer { padding-bottom: 0; } }
+/* and the desktop bottom banner must never render on mobile */
+@media (max-width: 759px) { .bottom-banner { display: none !important; } }
