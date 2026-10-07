@@ -1548,3 +1548,9 @@ document.querySelectorAll('form[data-rs-form]').forEach(f => {
     bar.querySelector('.cb-x').addEventListener('click', () => { sessionStorage.setItem('tceCallBar','1'); bar.remove(); });
   } catch (e) {}
 })();
+
+// analytics: track email link clicks
+document.addEventListener('click', e => {
+  const a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
+  if (a) { try { if (typeof gtag === 'function') gtag('event', 'email_click', { link_url: a.getAttribute('href') }); } catch (err) {} }
+}, true);
