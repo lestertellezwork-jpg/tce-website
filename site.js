@@ -1554,3 +1554,12 @@ document.addEventListener('click', e => {
   const a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
   if (a) { try { if (typeof gtag === 'function') gtag('event', 'email_click', { link_url: a.getAttribute('href') }); } catch (err) {} }
 }, true);
+
+// trust microcopy under every form
+document.querySelectorAll('form[data-tce-form]').forEach(f => {
+  if (f.parentNode.querySelector('.form-trust')) return;
+  const t = document.createElement('p');
+  t.className = 'form-trust';
+  t.innerHTML = '<b>\u2713</b> Reviewed by an engineer, not a sales team &nbsp;\u00b7&nbsp; <b>\u2713</b> Response within one business day \u2014 usually the same afternoon &nbsp;\u00b7&nbsp; Prefer email? <a href="mailto:info@trillasengineering.com">info@trillasengineering.com</a>';
+  f.insertAdjacentElement('afterend', t);
+});
