@@ -152,17 +152,57 @@ LinkedIn Insight Tag:
 Meta Pixel:
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','YOUR_META_PIXEL_ID');fbq('track','PageView');</script>
 ===== END PIXELS ===== -->
+<style>
+/* ===== LP conversion punch: compact + flashy ===== */
+section{padding:clamp(28px,4vw,46px) 0}
+.hero{padding:clamp(26px,4vw,44px) 0}
+.hero h1{font-size:clamp(32px,4.4vw,54px);margin:10px 0 12px}
+.hero .lede{font-size:15px;line-height:1.55}
+h2{font-size:clamp(24px,2.8vw,36px);margin-bottom:14px}
+.seclabel{margin-bottom:10px}
+.cols{gap:18px}
+.steps{gap:16px}
+.check li{padding:5px 0 5px 24px;font-size:14px}
+.qcard{padding:14px 16px}
+.qcard p{font-size:13px}
+.step p{font-size:13px}
+/* animated accent bar at very top */
+.topbar{position:relative}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d96c28,#3866cc,#d96c28);background-size:200% 100%;animation:lpBar 5s linear infinite}
+@keyframes lpBar{to{background-position:200% 0}}
+.topbar .tel{background:#d96c28;padding:9px 16px;font-size:13px;letter-spacing:.04em;animation:lpPulse 2.6s ease-in-out infinite}
+@keyframes lpPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,108,40,.55)}50%{box-shadow:0 0 0 9px rgba(217,108,40,0)}}
+/* urgency strip */
+.lp-urgency{background:#d96c28;color:#fff;text-align:center;padding:8px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.lp-urgency b{margin-right:8px}
+/* trust chips in hero */
+.lpchips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.lpchips span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#cfe0ff;border:1px solid rgba(126,161,232,.45);padding:6px 11px;background:rgba(56,102,204,.14)}
+/* form card: glowing offer */
+.formcard{border-top:4px solid #d96c28;box-shadow:0 14px 44px rgba(4,8,24,.35)}
+.formcard::before{content:"\26A1 FREE CONSULTATION REVIEW \2014 NO OBLIGATION";display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.14em;color:#d96c28;margin-bottom:8px}
+.formcard h2{font-size:19px;margin-bottom:12px}
+.ffield{margin-bottom:9px}
+input,select,textarea{padding:9px 12px}
+button.pill{padding:15px 24px;font-size:13px;animation:lpPulse 2.6s ease-in-out infinite}
+.pill.solid:hover{transform:scale(1.03)}
+.pill{transition:background .2s,color .2s,transform .2s}
+/* floating CTA (desktop, appears on scroll) */
+.lp-float{position:fixed;right:22px;bottom:22px;z-index:900;background:#d96c28;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;padding:15px 22px;box-shadow:0 10px 30px rgba(4,8,24,.4);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s,transform .35s;animation:lpPulse 2.6s ease-in-out infinite}
+.lp-float.on{opacity:1;transform:none;pointer-events:auto}
+@media(max-width:760px){.lp-float{display:none}}
+</style>
 </head>
 <body>
 <header class="topbar">
   <span class="brandtxt">TRILLAS <span style="font-size:12px;letter-spacing:.14em;color:#9db1d6">CONSULTING ENGINEERS</span></span>
   <a class="tel" href="tel:7865425474">&#9742; Call TCE &nbsp;786-542-5474</a>
-</header><section class="hero">
+</header><div class="lp-urgency"><b>&#9889;</b>FREE CONSULTATION &middot; RESPONSE WITHIN ONE BUSINESS DAY &middot; LICENSED IN 32 JURISDICTIONS</div><section class="hero">
   <div class="wrap herogrid">
     <div>
       <span class="kicker">Forensic Engineering Services</span>
       <h1>Forensic engineering<br>that gets to the cause.</h1>
-      <p class="lede">When property damage, construction defects, component failures, or disputed conditions require answers, Trillas Consulting Engineers provides independent engineering investigations to determine cause, extent, and contributing factors.</p>
+      <p class="lede">When property damage, construction defects, component failures, or disputed conditions require answers, Trillas Consulting Engineers provides independent engineering investigations to determine cause, extent, and contributing factors.</p><div class="lpchips"><span>&#9889; 1-Business-Day Response</span><span>32 Jurisdictions</span><span>Litigation-Ready Findings</span><span>Direct Engineer Access</span></div>
       <p style="margin-top:24px"><a class="pill solid" href="#lead">Request a Forensic Engineering Consultation &rarr;</a></p>
       <p style="margin-top:16px;color:rgba(255,255,255,.75);font-weight:700">&#9742; Call TCE &nbsp;786-542-5474</p>
     </div>
@@ -283,5 +323,5 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
     var first=f.querySelector('.fstep2 input'); if(first) first.focus();
   });
 });
-</script></body>
+</script><a class="lp-float" href="#lead">Request Consultation &rarr;</a><script>(function(){var b=document.querySelector(".lp-float");if(!b)return;addEventListener("scroll",function(){var y=scrollY>520,L=document.getElementById("lead"),r=L?L.getBoundingClientRect():null,nearForm=r&&r.top<innerHeight&&r.bottom>0;b.classList.toggle("on",y&&!nearForm)},{passive:true})})();</script></body>
 </html>
