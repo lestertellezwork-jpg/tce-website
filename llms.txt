@@ -3,9 +3,9 @@
 
 ## Services
 - [Structural Design & Analysis](https://www.trillasengineering.com/structural-design.html): new construction, renovations, expansions, threshold inspections — low- to high-rise
-- [Cold-Formed Steel Engineering](https://www.trillasengineering.com/cold-formed-steel.html): delegated design and engineer-of-record for multifamily, mixed-use, commercial and prefab
+- [Cold-Formed Steel Engineering](https://www.trillasengineering.com/cold-formed-steel.html): engineer-of-record (EOR) or delegated specialty engineer for single-family through mid-rise, multifamily, mixed-use, commercial and prefab; sealed calculations and drawings plus production machine files for Howick, Scottsdale (Vertex/SCS) and FrameCAD roll-forming equipment
 - [MEP System Design](https://www.trillasengineering.com/mep-engineering.html): mechanical, electrical, plumbing — coordinated in-house with the structure
-- [Forensic Investigations](https://www.trillasengineering.com/forensic-investigations.html): hail, wind, hurricane, water, fire and construction-defect evaluations; cause of damage and scope of repair; expert testimony
+- [Forensic Investigations](https://www.trillasengineering.com/forensic-investigations.html): hail, wind, hurricane, water, fire and construction-defect evaluations; cause of damage and scope of repair; facade & building envelope forensic audits; fatigue and component failure analysis; expert testimony
 - [Product R+D](https://www.trillasengineering.com/product-rd.html): building-product design, materials, testing and approval support
 
 ## Key pages
@@ -22,3 +22,5 @@
 - Forensic focus states: Texas, Florida, Illinois, Ohio, Arkansas (national practice)
 - Design/CFS focus states: North Carolina, Florida, Georgia, Michigan, Alabama
 - Reports are code-referenced and written to be defensible under oath
+- Licensed jurisdictions: Alabama, Arizona, Arkansas, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maryland, Massachusetts, Michigan, Mississippi, Missouri, Nebraska, New York, North Carolina, North Dakota, Ohio, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, Tennessee, Texas, Virginia
+- Office: 15476 NW 77 Court, Suite 195, Miami Lakes, FL 33016
