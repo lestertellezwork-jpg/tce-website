@@ -1512,9 +1512,9 @@ document.querySelectorAll('form[data-rs-form]').forEach(f => {
         '<div class="xi-card" role="dialog" aria-modal="true" aria-label="Free checklist">' +
         '<button class="xi-x" aria-label="Close">&times;</button>' +
         '<p class="xi-k">Before you go &mdash; a free tool from our engineers</p>' +
-        '<h3>Post-Storm Roof Inspection Checklist</h3>' +
-        '<p class="xi-p">What to document after hurricane, wind, or hail &mdash; before repairs erase the evidence. Attorneys: get the <a href="resources.html#attorneys" style="text-decoration:underline">expert retention checklist</a> instead.</p>' +
-        '<form data-rs-form="1" data-pdf="downloads/tce-post-storm-roof-checklist.pdf" data-asset="Post-Storm Roof Checklist (exit offer)">' +
+        '<h3>Expert Retention Checklist</h3>' +
+        '<p class="xi-p">The 5 questions to ask before retaining a forensic engineering expert &mdash; from engineers who testify. Attorneys: get the <a href="resources.html#attorneys" style="text-decoration:underline">expert retention checklist</a> instead.</p>' +
+        '<form data-rs-form="1" data-pdf="downloads/tce-expert-retention-checklist.pdf" data-asset="Expert Retention Checklist (exit offer)">' +
         '<input type="checkbox" name="botcheck" style="display:none" tabindex="-1">' +
         '<div style="display:flex;gap:8px"><input type="email" name="email" required placeholder="Work email">' +
         '<button class="pill solid" type="submit">Get the PDF &rarr;</button></div></form>' +
@@ -1529,7 +1529,7 @@ document.querySelectorAll('form[data-rs-form]').forEach(f => {
         const data = { access_key: TCE_FORMS_KEY, subject: 'Checklist download: exit offer', email: nf.querySelector('[name="email"]').value, page: location.href };
         try { if (location.protocol !== 'file:') await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (err) {}
         try { if (typeof gtag === 'function') gtag('event', 'lead_magnet_download', { asset: 'exit-offer' }); } catch (err) {}
-        const a = document.createElement('a'); a.href = 'downloads/tce-post-storm-roof-checklist.pdf'; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+        const a = document.createElement('a'); a.href = 'downloads/tce-expert-retention-checklist.pdf'; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
         nf.innerHTML = '<p style="color:var(--accent);font-weight:700">✓ Downloading — check your downloads folder.</p>';
       });
     };
