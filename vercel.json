@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/what-is-cold-formed-steel.html",
+      "destination": "/cold-formed-steel.html",
+      "permanent": true
+    },
+    {
       "source": "/services/forensics",
       "destination": "/forensic-investigations.html",
       "permanent": true
