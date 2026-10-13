@@ -270,7 +270,7 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
     var data={access_key:'6b6640d9-70ca-4de5-8315-e863ac6014ac',subject:f.getAttribute('data-subject')||'Trillas Consulting Engineers Ads lead'};
     new FormData(f).forEach(function(v,k){ if(k!=='botcheck'&&k!=='not-robot') data[k]=v; });
     try{ data.page=location.href; }catch(_){}
-    var ok=function(){ try{ if(typeof gtag==='function') gtag('event','generate_lead',{form_name:f.getAttribute('name')||'lp-form',page_location:location.href}); }catch(_){} setTimeout(function(){ window.location.href='thank-you.html'; },350); };
+    var ok=function(){ try{ if(typeof gtag==='function') gtag('event','generate_lead',{form_name:f.getAttribute('name')||'lp-form',page_location:location.href}); }catch(_){} setTimeout(function(){ window.location.href='thank-you.html?form='+encodeURIComponent(f.getAttribute('name')||'lp-form'); },350); };
     if(location.protocol==='file:'){ ok(); return; }
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){ if(r.ok){ok();} else {btn.disabled=false; btn.textContent='Request a Consultation \u2192';} })
