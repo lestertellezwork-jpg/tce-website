@@ -1501,6 +1501,7 @@ document.querySelectorAll('form[data-rs-form]').forEach(f => {
 (() => {
   try {
     if (window.innerWidth < 900 || TCECALM()) return;
+    return; // exit-intent popup disabled per Thelma (Oct 2026) until checklist finalized
     if (localStorage.getItem('tceExitShown') && Date.now() - (+localStorage.getItem('tceExitShown')) < 6048e5) return;
     if (location.pathname.indexOf('/lp/') !== -1 || location.pathname.indexOf('resources') !== -1 || location.pathname.indexOf('thanks') !== -1) return;
     let armed = false; setTimeout(() => { armed = true; }, 12000);
