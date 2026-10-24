@@ -60,9 +60,12 @@ section{padding:clamp(36px,5vw,60px) 0}
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Q7XK05D92S');
+  gtag('config', 'AW-1031275679');
+  // Google Ads conversion: Submit lead form (fires on thank-you pageview)
+  gtag('event', 'conversion', { 'send_to': 'AW-1031275679/zK4-COOO2KEdEJ-J4OsD', 'value': 1.0, 'currency': 'USD' });
   document.addEventListener('click', function(e){
     var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
-    if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
+    if (a) { gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') }); gtag('event', 'conversion', { 'send_to': 'AW-1031275679/7Ss6CNDk5KEdEJ-J4OsD', 'value': 1.0, 'currency': 'USD' }); }
   }, true);
 </script>
 </head>

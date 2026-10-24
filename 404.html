@@ -22,10 +22,11 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Q7XK05D92S');
+  gtag('config', 'AW-1031275679');
   // phone-call clicks as conversions
   document.addEventListener('click', function(e){
     var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
-    if (a) gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') });
+    if (a) { gtag('event', 'phone_call_click', { link_url: a.getAttribute('href') }); gtag('event', 'conversion', { 'send_to': 'AW-1031275679/7Ss6CNDk5KEdEJ-J4OsD', 'value': 1.0, 'currency': 'USD' }); }
   }, true);
 </script>
 <!-- ===== RETARGETING PIXELS (inactive placeholders) =====
