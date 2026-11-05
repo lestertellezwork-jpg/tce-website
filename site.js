@@ -1155,7 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Scroll-depth proposal nudge (once per session, not on contact page)
-  if (window.innerWidth >= 760 && !/contact\.html$/.test(location.pathname) && !sessionStorage.getItem('tceNudge')) {
+  if (false && window.innerWidth >= 760 && !/contact\.html$/.test(location.pathname) && !sessionStorage.getItem('tceNudge')) { // nudge popup disabled per Eric (Nov 2026)
     const nd = document.createElement('aside');
     nd.className = 'nudge';
     nd.innerHTML =
