@@ -1154,6 +1154,54 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch (e) {}
 
 
+  // Scroll-depth proposal nudge (once per session, not on contact page)
+  if (window.innerWidth >= 760 && !/contact\.html$/.test(location.pathname) && !sessionStorage.getItem('tceNudge')) {
+    const nd = document.createElement('aside');
+    nd.className = 'nudge';
+    nd.innerHTML =
+      '<button class="nudge-x" aria-label="Dismiss">&times;</button>' +
+      (document.documentElement.classList.contains('returning')
+        ? '<strong>Welcome back \u2014 need an engineer on something?</strong>'
+        : '<strong>Have a project or claim like this?</strong>') +
+      '<p>Free scoping conversation &mdash; you&rsquo;ll hear back within one business day.</p>' +
+      '<div class="nudge-btns"><a href="contact.html#form" class="pill solid">Get My Proposal</a>' +
+      '<a href="book-call.html" class="pill">Book a Call</a></div>';
+    document.body.appendChild(nd);
+    nd.querySelector('.nudge-x').addEventListener('click', () => {
+      nd.classList.remove('on');
+      setTimeout(() => nd.remove(), 500);
+    });
+    const nudgeWatch = () => {
+      const h = document.documentElement;
+      const depth = (h.scrollTop + h.clientHeight) / h.scrollHeight;
+      if (depth > .7) {
+        nd.classList.add('on');
+        sessionStorage.setItem('tceNudge', '1');
+        window.removeEventListener('scroll', nudgeWatch);
+      }
+    };
+    window.addEventListener('scroll', nudgeWatch, { passive: true });
+  }
+
+  // Bottom conversion banner (desktop, once per session)
+  if (window.innerWidth >= 760 && !sessionStorage.getItem('tceBanner')) {
+    const bb = document.createElement('div');
+    bb.className = 'bottom-banner';
+    bb.innerHTML =
+      '<span class="bb-txt"><i class="bb-dot"></i>Free scoping conversation &middot; response within one business day</span>' +
+      '<a class="bb-link" href="contact.html#form">Get My Proposal <span class="arrow">&rarr;</span></a>' +
+      '<a class="bb-link" href="book-call.html">Book a 15-min Call</a>' +
+      '<a class="bb-link bb-tel" href="tel:7865425474">786-542-5474</a>' +
+      '<button class="bb-x" aria-label="Dismiss">&times;</button>';
+    document.body.appendChild(bb);
+    document.body.classList.add('has-banner');
+    bb.querySelector('.bb-x').addEventListener('click', () => {
+      sessionStorage.setItem('tceBanner', '1');
+      bb.remove();
+      document.body.classList.remove('has-banner');
+    });
+  }
+
   // Outlined marquee band above the footer
   const ftEl = document.querySelector('.footer-v2');
   if (ftEl && false) {
@@ -1449,6 +1497,59 @@ document.querySelectorAll('form[data-rs-form]').forEach(f => {
   });
 });
 
+// ---- Exit-intent offer: desktop only, once per visitor per week ----
+(() => {
+  try {
+    if (window.innerWidth < 900 || TCECALM()) return;
+    return; // exit-intent popup disabled per Thelma (Oct 2026) until checklist finalized
+    if (localStorage.getItem('tceExitShown') && Date.now() - (+localStorage.getItem('tceExitShown')) < 6048e5) return;
+    if (location.pathname.indexOf('/lp/') !== -1 || location.pathname.indexOf('resources') !== -1 || location.pathname.indexOf('thanks') !== -1) return;
+    let armed = false; setTimeout(() => { armed = true; }, 12000);
+    const show = () => {
+      if (!armed || document.getElementById('tce-exit')) return;
+      localStorage.setItem('tceExitShown', String(Date.now()));
+      const w = document.createElement('div'); w.id = 'tce-exit';
+      w.innerHTML =
+        '<div class="xi-card" role="dialog" aria-modal="true" aria-label="Free checklist">' +
+        '<button class="xi-x" aria-label="Close">&times;</button>' +
+        '<p class="xi-k">Before you go &mdash; a free tool from our engineers</p>' +
+        '<h3>Expert Retention Checklist</h3>' +
+        '<p class="xi-p">The 5 questions to ask before retaining a forensic engineering expert &mdash; from engineers who testify. Attorneys: get the <a href="resources.html#attorneys" style="text-decoration:underline">expert retention checklist</a> instead.</p>' +
+        '<form data-rs-form="1" data-pdf="downloads/tce-expert-retention-checklist.pdf" data-asset="Expert Retention Checklist (exit offer)">' +
+        '<input type="checkbox" name="botcheck" style="display:none" tabindex="-1">' +
+        '<div style="display:flex;gap:8px"><input type="email" name="email" required placeholder="Work email">' +
+        '<button class="pill solid" type="submit">Get the PDF &rarr;</button></div></form>' +
+        '<p class="xi-alt">Or leave your number and we’ll call you within 2 business hours: <a href="contact.html#form">request a callback &rarr;</a></p>' +
+        '</div>';
+      document.body.appendChild(w);
+      w.addEventListener('click', e => { if (e.target === w || e.target.classList.contains('xi-x')) w.remove(); });
+      document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') { w.remove(); document.removeEventListener('keydown', esc); } });
+      const nf = w.querySelector('form[data-rs-form]');
+      nf.addEventListener('submit', async e => {
+        e.preventDefault();
+        const data = { access_key: TCE_FORMS_KEY, subject: 'Checklist download: exit offer', email: nf.querySelector('[name="email"]').value, page: location.href };
+        try { if (location.protocol !== 'file:') await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (err) {}
+        try { if (typeof gtag === 'function') gtag('event', 'lead_magnet_download', { asset: 'exit-offer' }); } catch (err) {}
+        const a = document.createElement('a'); a.href = 'downloads/tce-expert-retention-checklist.pdf'; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+        nf.innerHTML = '<p style="color:var(--accent);font-weight:700">✓ Downloading — check your downloads folder.</p>';
+      });
+    };
+    document.documentElement.addEventListener('mouseleave', e => { if (e.clientY <= 0) show(); });
+  } catch (e) {}
+})();
+
+// ---- Mobile sticky call bar ----
+(() => {
+  try {
+    if (window.innerWidth >= 760) return;
+    if (sessionStorage.getItem('tceCallBar') || location.pathname.indexOf('/lp/') !== -1) return;
+    const bar = document.createElement('div'); bar.className = 'call-bar';
+    bar.innerHTML = '<a href="tel:7865425474">&#9742;&nbsp; Call TCE &mdash; 786-542-5474</a><a class="cb-form" href="contact.html#form">Get Proposal</a><button class="cb-x" aria-label="Dismiss">&times;</button>';
+    document.body.appendChild(bar);
+    bar.querySelector('.cb-x').addEventListener('click', () => { sessionStorage.setItem('tceCallBar','1'); bar.remove(); });
+  } catch (e) {}
+})();
+
 // analytics: track email link clicks
 document.addEventListener('click', e => {
   const a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
@@ -1463,3 +1564,28 @@ document.querySelectorAll('form[data-tce-form]').forEach(f => {
   t.innerHTML = '<b>\u2713</b> Reviewed by an engineer, not a sales team &nbsp;\u00b7&nbsp; <b>\u2713</b> Response within one business day \u2014 usually the same afternoon &nbsp;\u00b7&nbsp; Prefer email? <a href="mailto:info@trillasengineering.com">info@trillasengineering.com</a>';
   f.insertAdjacentElement('afterend', t);
 });
+
+/* ===== Cookie consent banner + Google Consent Mode v2 (Nov 2026) ===== */
+(function () {
+  try {
+    var KEY='tceConsent';
+    function apply(v){ try{ if(typeof gtag==='function') gtag('consent','update',{'ad_storage':v,'ad_user_data':v,'ad_personalization':v,'analytics_storage':v}); }catch(e){} }
+    function close(){ var b=document.getElementById('tce-cc'); if(b) b.remove(); }
+    function choose(v){ try{localStorage.setItem(KEY,v);}catch(e){} apply(v); close(); }
+    function show(){
+      if(document.getElementById('tce-cc')) return;
+      var d=document.createElement('div'); d.id='tce-cc';
+      d.setAttribute('role','dialog'); d.setAttribute('aria-label','Cookie preferences');
+      d.style.cssText='position:fixed;left:18px;bottom:18px;z-index:1200;max-width:360px;background:#0d1430;color:#fff;padding:18px;box-shadow:0 14px 44px rgba(4,8,24,.45);font-size:13px;line-height:1.55';
+      d.innerHTML='<p style="margin:0 0 10px">We use cookies and similar technologies for analytics and advertising measurement. See our <a href="privacy.html" style="color:#9db9ef;text-decoration:underline">Privacy Policy</a>.</p>'+
+        '<div style="display:flex;gap:8px"><button id="tce-cc-a" style="flex:1;background:#d96c28;border:0;color:#fff;font-weight:700;padding:10px;cursor:pointer;font-size:12px;letter-spacing:.05em">ACCEPT</button>'+
+        '<button id="tce-cc-r" style="flex:1;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;padding:10px;cursor:pointer;font-size:12px;letter-spacing:.05em">REJECT NON-ESSENTIAL</button></div>';
+      document.body.appendChild(d);
+      document.getElementById('tce-cc-a').onclick=function(){choose('granted');};
+      document.getElementById('tce-cc-r').onclick=function(){choose('denied');};
+    }
+    window.tceCookieSettings=show;
+    var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+    if(!saved) show(); else apply(saved);
+  } catch (e) {}
+})();

@@ -75,6 +75,12 @@ details div{padding:0 16px 14px;color:var(--muted);font-size:14px}
 @media(max-width:860px){.herogrid{grid-template-columns:1fr}.ericgrid{grid-template-columns:1fr;justify-items:center;text-align:left}.ericgrid img{max-width:260px}}
 </style>
 <!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function(){var c='granted';try{if(localStorage.getItem('tceConsent')==='denied')c='denied';}catch(e){}
+  gtag('consent','default',{'ad_storage':c,'ad_user_data':c,'ad_personalization':c,'analytics_storage':c,'wait_for_update':500});})();
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7XK05D92S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -249,7 +255,7 @@ button.pill{padding:15px 24px;font-size:13px;animation:lpPulse 2.6s ease-in-out 
 </div><section>
   <div class="wrap" style="max-width:980px">
     <div class="cols">
-      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="33">0</span></h3><p class="muted" style="font-size:14px"><strong>Licensed states</strong> &mdash; a stamp that counts, wherever your loss is.</p></div>
+      <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="32">0</span></h3><p class="muted" style="font-size:14px"><strong>Licensed jurisdictions</strong> &mdash; a stamp that counts, wherever your loss is.</p></div>
       <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="10">0</span>+</h3><p class="muted" style="font-size:14px"><strong>Years consulting</strong> for carriers, attorneys, adjusters and owners nationwide.</p></div>
       <div><h3 style="color:var(--acc);font-size:30px;margin-bottom:4px"><span class="cnt" data-to="1">0</span></h3><p class="muted" style="font-size:14px"><strong>Business day</strong> &mdash; you&rsquo;ll hear back within one, usually the same afternoon.</p></div>
     </div>
@@ -271,7 +277,7 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
     var data={access_key:'6b6640d9-70ca-4de5-8315-e863ac6014ac',subject:f.getAttribute('data-subject')||'Trillas Consulting Engineers Ads lead'};
     new FormData(f).forEach(function(v,k){ if(k!=='botcheck'&&k!=='not-robot') data[k]=v; });
     try{ data.page=location.href; }catch(_){}
-    var ok=function(){ try{ if(typeof gtag==='function') gtag('event','generate_lead',{form_name:f.getAttribute('name')||'lp-form',page_location:location.href}); }catch(_){} setTimeout(function(){ window.location.href='thank-you.html?form='+encodeURIComponent(f.getAttribute('name')||'lp-form'); },350); };
+    var ok=function(){ try{ var _em=f.querySelector('[name=\"email\"]'); if(_em&&_em.value) sessionStorage.setItem('tceEC',_em.value); }catch(_){} try{ if(typeof gtag==='function') gtag('event','generate_lead',{form_name:f.getAttribute('name')||'lp-form',page_location:location.href}); }catch(_){} setTimeout(function(){ window.location.href='thank-you.html?form='+encodeURIComponent(f.getAttribute('name')||'lp-form'); },350); };
     if(location.protocol==='file:'){ ok(); return; }
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){ if(r.ok){ok();} else {btn.disabled=false; btn.textContent='Request a Consultation \u2192';} })
@@ -324,5 +330,5 @@ document.querySelectorAll('form[data-lp-form]').forEach(function(f){
     var first=f.querySelector('.fstep2 input'); if(first) first.focus();
   });
 });
-</script></body>
+</script><a class="lp-float" href="#lead">Request Consultation &rarr;</a><script>(function(){var b=document.querySelector(".lp-float");if(!b)return;addEventListener("scroll",function(){var y=scrollY>520,L=document.getElementById("lead"),r=L?L.getBoundingClientRect():null,nearForm=r&&r.top<innerHeight&&r.bottom>0;b.classList.toggle("on",y&&!nearForm)},{passive:true})})();</script></body>
 </html>

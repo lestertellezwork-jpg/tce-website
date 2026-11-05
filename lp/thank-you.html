@@ -54,6 +54,12 @@ section{padding:clamp(36px,5vw,60px) 0}
 .foot a{text-decoration:underline;text-underline-offset:3px}
 </style>
 <!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  (function(){var c='granted';try{if(localStorage.getItem('tceConsent')==='denied')c='denied';}catch(e){}
+  gtag('consent','default',{'ad_storage':c,'ad_user_data':c,'ad_personalization':c,'analytics_storage':c,'wait_for_update':500});})();
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7XK05D92S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -61,6 +67,8 @@ section{padding:clamp(36px,5vw,60px) 0}
   gtag('js', new Date());
   gtag('config', 'G-Q7XK05D92S');
   gtag('config', 'AW-1031275679');
+  // Enhanced conversions: hashed first-party email from the submitted form
+  try { var _ec = sessionStorage.getItem('tceEC'); if (_ec) { gtag('set', 'user_data', { 'email': _ec }); sessionStorage.removeItem('tceEC'); } } catch(e) {}
   // Google Ads conversion: Submit lead form (fires on thank-you pageview)
   gtag('event', 'conversion', { 'send_to': 'AW-1031275679/zK4-COOO2KEdEJ-J4OsD', 'value': 1.0, 'currency': 'USD' });
   document.addEventListener('click', function(e){
